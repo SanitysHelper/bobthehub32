@@ -1,0 +1,925 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local ScreenGui = Instance.new("ScreenGui")
+local Title = Instance.new("TextLabel")
+local MainFrame = Instance.new("Frame")
+local Holders = Instance.new("ScrollingFrame")
+local UIGradient = Instance.new("UIGradient")
+local Storagelol = Instance.new("Frame")
+local Minimize = Instance.new("TextButton")
+local Values = Instance.new("TextBox")
+local Storage = Instance.new("Folder")
+local Tab1 = Instance.new("TextButton")
+local Button1 = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+local Outline = Instance.new("TextButton")
+local UICorner_2 = Instance.new("UICorner")
+local Frame1 = Instance.new("ScrollingFrame")
+
+--Properties:
+
+ScreenGui.Parent = game.CoreGui
+
+Title.Name = "Title"
+Title.Parent = ScreenGui
+Title.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Title.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Title.Position = UDim2.new(0.371914953, 0, 0.382239372, 0)
+Title.Size = UDim2.new(0.205319148, 0, 0.0207400256, 0)
+Title.Font = Enum.Font.Fantasy
+Title.Text = "bob the hub"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextScaled = true
+Title.TextSize = 14.000
+Title.TextWrapped = true
+
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = Title
+MainFrame.BackgroundColor3 = Color3.fromRGB(156, 156, 156)
+MainFrame.BorderColor3 = Color3.fromRGB(255, 255, 255)
+MainFrame.Position = UDim2.new(0, 0, 1, -1)
+MainFrame.Size = UDim2.new(1, 0, 10, 0)
+
+Holders.Name = "Holders"
+Holders.Parent = MainFrame
+Holders.Active = true
+Holders.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Holders.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Holders.BorderSizePixel = 0
+Holders.Size = UDim2.new(1, 0, 0.100000001, 0)
+Holders.BottomImage = "rbxassetid://5903324492"
+Holders.CanvasSize = UDim2.new(2, 0, 0, 0)
+Holders.MidImage = "rbxassetid://5903324492"
+Holders.ScrollBarThickness = 2
+Holders.TopImage = "rbxassetid://5903324492"
+Holders.ScrollBarImageColor3 = Color3.fromRGB(140, 234, 255)
+
+UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(0.89, Color3.fromRGB(0, 0, 0)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(0, 0, 0))}
+UIGradient.Rotation = 270
+UIGradient.Parent = MainFrame
+
+Storagelol.Name = "Storagelol"
+Storagelol.Parent = MainFrame
+Storagelol.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Storagelol.BackgroundTransparency = 1.000
+Storagelol.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Storagelol.Position = UDim2.new(0, 0, 0.100000001, 2)
+Storagelol.Size = UDim2.new(1, 0, 0.899999976, -2)
+
+Minimize.Name = "Minimize"
+Minimize.Parent = Title
+Minimize.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Minimize.BackgroundTransparency = 1.000
+Minimize.Size = UDim2.new(0.100000001, 0, 1, 0)
+Minimize.Font = Enum.Font.SourceSans
+Minimize.Text = "-"
+Minimize.TextColor3 = Color3.fromRGB(255, 255, 255)
+Minimize.TextScaled = true
+Minimize.TextSize = 14.000
+Minimize.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+Minimize.TextWrapped = true
+
+Values.Name = "Values"
+Values.Parent = Title
+Values.BackgroundColor3 = Color3.fromRGB(49, 49, 49)
+Values.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Values.BorderSizePixel = 0
+Values.Position = UDim2.new(0.699999988, 0, 0, 0)
+Values.Size = UDim2.new(0.300000012, 0, 1, 0)
+Values.Font = Enum.Font.SourceSans
+Values.PlaceholderColor3 = Color3.fromRGB(99, 99, 99)
+Values.PlaceholderText = "Name/Value here"
+Values.Text = "press - to focus"
+Values.TextColor3 = Color3.fromRGB(255, 255, 255)
+Values.TextScaled = true
+Values.TextSize = 14.000
+Values.TextWrapped = true
+
+Storage.Name = "Storage"
+Storage.Parent = ScreenGui
+
+Tab1.Name = "Tab1"
+Tab1.Parent = Storage
+Tab1.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Tab1.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Tab1.Size = UDim2.new(0, 75, 1, 0)
+Tab1.Visible = false
+Tab1.Font = Enum.Font.SourceSans
+Tab1.Text = "Tab1"
+Tab1.TextColor3 = Color3.fromRGB(255, 255, 255)
+Tab1.TextScaled = true
+Tab1.TextSize = 14.000
+Tab1.TextWrapped = true
+
+Button1.Name = "Button1"
+Button1.Parent = Storage
+Button1.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Button1.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Button1.Position = UDim2.new(0, 1, 0, 1)
+Button1.Size = UDim2.new(0.5, -11, 0, 23)
+Button1.Visible = false
+Button1.ZIndex = 2
+Button1.Font = Enum.Font.SourceSans
+Button1.Text = "Button1"
+Button1.TextColor3 = Color3.fromRGB(255, 255, 255)
+Button1.TextScaled = true
+Button1.TextSize = 12.000
+Button1.TextWrapped = true
+
+UICorner.CornerRadius = UDim.new(0.100000001, 0)
+UICorner.Parent = Button1
+
+Outline.Name = "Outline"
+Outline.Parent = Button1
+Outline.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Outline.BackgroundTransparency = 0.200
+Outline.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Outline.Position = UDim2.new(0, -1, 0, -1)
+Outline.Size = UDim2.new(1, 2, 1, 2)
+Outline.Font = Enum.Font.SourceSans
+Outline.Text = ""
+Outline.TextColor3 = Color3.fromRGB(255, 255, 255)
+Outline.TextScaled = true
+Outline.TextSize = 12.000
+Outline.TextWrapped = true
+
+UICorner_2.CornerRadius = UDim.new(0.100000001, 0)
+UICorner_2.Parent = Outline
+
+Frame1.Name = "Frame1"
+Frame1.Parent = Storage
+Frame1.Active = true
+Frame1.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame1.BackgroundTransparency = 1.000
+Frame1.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Frame1.Size = UDim2.new(1, 0, 1, 0)
+Frame1.Visible = false
+Frame1.BottomImage = "rbxassetid://5903324492"
+Frame1.MidImage = "rbxassetid://5903324492"
+Frame1.ScrollBarThickness = 4
+Frame1.TopImage = "rbxassetid://5903324492"
+Frame1.ScrollBarImageColor3 = Color3.fromRGB(140, 234, 255)
+
+-- Scripts:
+
+local function STFCVRJ_fake_script() -- MainFrame.LocalScript 
+	local script = Instance.new('LocalScript', MainFrame)
+
+	function tablefind(table, thing)
+		for i,v in pairs(table) do
+			if v == thing then
+				return i
+			end
+		end
+	end
+	
+	function split(text, splitter)
+		text = text..splitter
+		local returning = {}
+		local returningtxt = ""
+		for i = 1,#text do
+			if text:sub(i,i) ~= splitter and splitter ~= "" then
+				returningtxt = returningtxt..text:sub(i,i)
+			else
+				if splitter == "" then
+					returning[#returning+1] = text:sub(i,i)
+				else
+					returning[#returning+1] = returningtxt
+				end
+				returningtxt = ""
+			end
+		end
+		return returning
+	end
+	
+	local debugmode = true
+	
+	local storage = script.Parent.Parent.Parent.Storage
+	local mainframe = script.Parent
+	local lp = game.Players.LocalPlayer
+	
+	
+	local uis = game:GetService("UserInputService")
+	uis.InputBegan:Connect(function(key)
+		if key.KeyCode == Enum.KeyCode.Minus then
+			game:GetService("RunService").Stepped:Wait()
+			mainframe.Parent.Values:CaptureFocus()
+		end
+	end)
+	
+	
+	function drag(guiobject, gui)
+		local moveoutofscreen = false
+		local gui = gui
+		if not gui then
+			gui = guiobject
+			repeat
+				gui = gui.Parent
+				wait()
+			until gui:IsA("ScreenGui")
+		end
+	
+		local function offsettoscale(pos)
+			local p1 = pos.X.Offset / gui.AbsoluteSize.X + pos.X.Scale
+			local p2 = pos.Y.Offset / gui.AbsoluteSize.Y + pos.Y.Scale
+			return UDim2.fromScale(p1,p2)
+		end
+	
+		local function checkpos1(pos)
+			local range1 = guiobject.AbsolutePosition.X
+			local range2 = guiobject.AbsolutePosition.X + guiobject.AbsoluteSize.X
+			local range3 = guiobject.AbsolutePosition.Y
+			local range4 = guiobject.AbsolutePosition.Y + guiobject.AbsoluteSize.Y
+			if pos.X.Offset >= range1 and pos.X.Offset <= range2 and pos.Y.Offset >= range3 and pos.Y.Offset <= range4 then
+				return true
+			end
+		end
+	
+		guiobject.Active = true
+		local speed = 0
+		local uis = game:GetService("UserInputService")
+		local helddown = false
+		local mouse = lp:GetMouse()
+		local delta = nil
+	
+		uis.InputBegan:Connect(function(thing)
+			if thing.UserInputType == Enum.UserInputType.MouseButton1 and checkpos1(UDim2.fromOffset(mouse.X,mouse.Y)) == true then
+				delta = UDim2.fromOffset(guiobject.AbsolutePosition.X,guiobject.AbsolutePosition.Y) - UDim2.fromOffset(mouse.X,mouse.Y)
+				helddown = true
+				repeat game:GetService("RunService").Stepped:Wait() until thing.UserInputState == Enum.UserInputState.End
+				helddown = false
+			end
+		end)
+		--pos.X.Offset >= 0 and pos.X.Offset <= script.Parent.Parent.AbsoluteSize.X
+		local function modifypos(position, position2)
+			if moveoutofscreen ~= true then
+				if position.X.Offset < 0 then
+					position = UDim2.fromOffset(0,position.Y.Offset)
+				elseif position2.X.Offset > gui.AbsoluteSize.X then
+					position = UDim2.fromOffset(gui.AbsoluteSize.X - guiobject.AbsoluteSize.X, position.Y.Offset)
+				end
+	
+				if position.Y.Offset < 0 then
+					position = UDim2.fromOffset(position.X.Offset,0)
+				elseif position2.Y.Offset > gui.AbsoluteSize.Y then
+					position = UDim2.fromOffset(position.X.Offset, gui.AbsoluteSize.Y - guiobject.AbsoluteSize.Y)
+				end
+			end
+			return position
+		end
+	
+		mouse.Move:Connect(function()
+			if helddown == true then
+				local mpos = UDim2.fromOffset(mouse.X,mouse.Y)
+				local pos = offsettoscale(modifypos(mpos + delta, (mpos+delta) + UDim2.fromOffset(guiobject.AbsoluteSize.X,guiobject.AbsoluteSize.Y)))
+				if speed > 0 then
+					guiobject:TweenPosition(pos,Enum.EasingDirection.In,Enum.EasingStyle.Linear,speed,true)
+				else
+					guiobject.Position = pos
+				end
+			end
+		end)
+	end
+	
+	drag(mainframe.Parent)
+	
+	function gettext()
+		return mainframe.Parent.Values.Text
+	end
+	
+	function gethumanoid(plr)
+		if not plr then
+			return lp.Character:WaitForChild("Humanoid")
+		else
+			return plr.Character:WaitForChild("Humanoid")
+		end
+	end
+	
+	function getroot(plr)
+		if not plr then
+			return gethumanoid().RootPart
+		else
+			return gethumanoid(plr).RootPart
+		end
+	end
+	
+	function getplr(name)
+		for i,v in pairs(game.Players:GetPlayers()) do
+			if v.Name:lower() == name then
+				return v
+			end
+		end
+		for i,v in pairs(game.Players:GetPlayers()) do
+			if v.Name:lower():match(name) then
+				return v
+			end
+		end
+	end
+	
+	local maxflyspeed = 2*2
+	local flyspeed = maxflyspeed/2
+	local flying = false
+	function fly()
+		if flying == false then
+			spawn(function()
+				flying = true
+				local x = 0
+				local y = 0
+				local z = 0
+				local keys = {}
+				local focusedcheck = ""
+				local status = "none"
+				lp.Character.Humanoid.PlatformStand = true
+				local uis = game:GetService("UserInputService")
+				local velocity = Instance.new("BodyVelocity",lp.Character.HumanoidRootPart)
+				velocity.MaxForce = Vector3.new('inf','inf','inf')
+				local gyro = Instance.new("BodyGyro",lp.Character.HumanoidRootPart)
+				gyro.MaxTorque = Vector3.new('inf','inf','inf')
+				gyro.D = 300
+				gyro.P = 9000
+				local focuschecc = uis.TextBoxFocused:Connect(function(thing)
+					focusedcheck = thing.Name
+					uis.TextBoxFocusReleased:Wait()
+					focusedcheck = ""
+				end)
+				velocity.Velocity = Vector3.new(0,0,0)
+				local fli = uis.InputBegan:Connect(function(key)
+					if not tablefind(keys,uis:GetStringForKeyCode(key.KeyCode)) then
+						keys[#keys+1] = uis:GetStringForKeyCode(key.KeyCode)
+					end
+					if key.KeyCode == Enum.KeyCode.W and focusedcheck == "" then
+						while key.UserInputState ~=Enum.UserInputState.End and flying == true  do
+							gyro.CFrame = game.Workspace.Camera.CFrame
+							local direction = lp.Character.Humanoid.MoveDirection * 16
+							local cameray = game.Workspace.Camera.CFrame.LookVector.Y*16
+							if tablefind(keys,"S") or tablefind(keys,"Q") or tablefind(keys,'E') then
+								if tablefind(keys,"Q") then
+									cameray = -16
+								elseif tablefind(keys,"E") then
+									cameray = 16
+								else
+									velocity.Velocity = Vector3.new(0,0,0)
+									repeat game:GetService("RunService").Stepped:Wait() until not tablefind(keys,"S") and not tablefind(keys,"Q") and not tablefind(keys,'E')
+								end
+							end
+							direction = Vector3.new(direction.X,cameray,direction.Z)
+							velocity.Velocity = direction * flyspeed
+							game:GetService("RunService").Stepped:Wait()
+						end
+						velocity.Velocity = Vector3.new(0,0,0)
+					end
+	
+					if key.KeyCode == Enum.KeyCode.S and focusedcheck == "" then
+						while key.UserInputState ~=Enum.UserInputState.End and flying == true  do
+							gyro.CFrame = game.Workspace.Camera.CFrame
+							local direction = lp.Character.Humanoid.MoveDirection * 16
+							local cameray = -(game.Workspace.Camera.CFrame.LookVector.Y*16)
+							if tablefind(keys,"W") or tablefind(keys,"Q") or tablefind(keys,'E') then
+								if tablefind(keys,"Q") then
+									cameray = -16
+								elseif tablefind(keys,"E") then
+									cameray = 16
+								else
+									velocity.Velocity = Vector3.new(0,0,0)
+									repeat game:GetService("RunService").Stepped:Wait() until not tablefind(keys,"W") and not tablefind(keys,"Q") and not tablefind(keys,'E')
+	
+								end
+							end
+							direction = Vector3.new(direction.X,cameray,direction.Z)
+							velocity.Velocity = direction * flyspeed
+							game:GetService("RunService").Stepped:Wait()
+						end
+						velocity.Velocity = Vector3.new(0,0,0)
+					end
+					if key.KeyCode == Enum.KeyCode.A and focusedcheck == "" or key.KeyCode == Enum.KeyCode.D and focusedcheck == "" then
+						local progress = 0
+						while key.UserInputState ~=Enum.UserInputState.End and flying == true  do
+							gyro.CFrame = game.Workspace.Camera.CFrame
+							local direction = lp.Character.Humanoid.MoveDirection * 16
+							local cameray = velocity.Velocity.Y
+							direction = Vector3.new(direction.X*flyspeed,cameray,direction.Z*flyspeed)
+							velocity.Velocity = direction
+							game:GetService("RunService").Stepped:Wait()
+						end
+						velocity.Velocity = Vector3.new(0,0,0)
+					end
+					if key.KeyCode == Enum.KeyCode.E and  focusedcheck == ""  then
+						while key.UserInputState ~=Enum.UserInputState.End and flying == true  do
+							gyro.CFrame = game.Workspace.Camera.CFrame
+							local direction = lp.Character.Humanoid.MoveDirection * 0
+							local cameray = 16
+							if tablefind(keys,'Q') then
+								cameray = 0
+							end
+							direction = Vector3.new(direction.X,cameray,direction.Z)
+							velocity.Velocity = direction * flyspeed
+							game:GetService("RunService").Stepped:Wait()
+						end
+						velocity.Velocity = Vector3.new(0,0,0)
+					end
+					if key.KeyCode == Enum.KeyCode.Q and  focusedcheck == ""  then
+						while key.UserInputState ~=Enum.UserInputState.End and flying == true  do
+							gyro.CFrame = game.Workspace.Camera.CFrame
+							local direction = lp.Character.Humanoid.MoveDirection * 0
+							local cameray = -16
+							if tablefind(keys,'E') then
+								cameray = 0
+							end
+							direction = Vector3.new(direction.X,cameray,direction.Z)
+							velocity.Velocity = direction * flyspeed
+							game:GetService("RunService").Stepped:Wait()
+						end
+						velocity.Velocity = Vector3.new(0,0,0)
+					end
+	
+					if key.KeyCode == Enum.KeyCode.Space and focusedcheck == "" then
+						lp.Character.Humanoid.Sit = false
+					end
+	
+					if key.KeyCode == Enum.KeyCode.LeftShift and focusedcheck == "" then
+						flyspeed = maxflyspeed
+						repeat game:GetService("RunService").Stepped:Wait() until key.UserInputState == Enum.UserInputState.End
+						flyspeed = maxflyspeed /2
+					end
+				end)
+	
+				local qwe = uis.InputEnded:Connect(function(key)
+					if tablefind(keys,uis:GetStringForKeyCode(key.KeyCode)) then
+						local number = tablefind(keys,uis:GetStringForKeyCode(key.KeyCode))
+						table.remove(keys,number)
+					end
+				end)
+	
+				while flying == true and lp.Character.Humanoid.Health > 0 do
+					gyro.CFrame = game.Workspace.Camera.CFrame
+					game:GetService("RunService").Stepped:Wait()
+				end
+				fli:Disconnect()
+				qwe:Disconnect()
+				focuschecc:Disconnect()
+				velocity:Destroy()
+				gyro:Destroy()
+				lp.Character.Humanoid.PlatformStand = false
+				flying = false
+			end)
+		else
+			flying = false
+		end
+	end
+	
+	function unfly()
+		flying = false
+	end
+	
+	function setspeedfly(int)
+		maxflyspeed = int*2
+		flyspeed = maxflyspeed / 2
+	end
+	
+	local noclipping = false
+	function clip()
+		noclipping = false
+		for i,v in pairs(lp.Character:GetChildren()) do
+			if v:IsA("BasePart") and not v.Name:match("Hand") and not v.Name:match("Foot") and not v.Name:match("Leg") and not v.Name:match("Arm") then
+				v.CanCollide = true
+			end
+		end
+	end
+	
+	function noclip()
+		noclipping =  not noclipping
+		while game:GetService("RunService").Stepped:Wait() and noclipping == true do
+			for i,v in pairs(lp.Character:GetChildren()) do
+				if v:IsA("BasePart") and v.CanCollide == true  then
+					v.CanCollide = false
+				end
+			end
+		end
+		clip()
+	end
+	
+	-----------------------------------------------------------------------------------------------------------------
+	
+	local frames = {}
+	local framenames = {}
+	
+	function createframe(name)
+		local newframe = storage.Frame1:Clone()
+		newframe.Parent = mainframe.Storagelol
+		newframe.Name = name
+		frames[#frames+1] = newframe
+		framenames[#framenames+1] = newframe.Name
+		local tab = storage.Tab1:Clone()
+		tab.Text = name
+		tab.Parent = mainframe.Holders
+		tab.Position = UDim2.fromOffset((#mainframe.Holders:GetChildren()-1)*tab.Size.X.Offset, 0)
+		tab.Visible = true
+		mainframe.Holders.CanvasSize = UDim2.fromOffset(#mainframe.Holders:GetChildren()*tab.Size.X.Offset,0)
+		local function vify()
+			local chosen = nil
+			for i,v in pairs(mainframe.Storagelol:GetChildren()) do
+				if v ~= newframe then
+					v.Visible = false
+				else
+					v.Visible = true
+					chosen = v
+				end
+			end
+			if chosen == newframe then
+				tab.BackgroundColor3 = Color3.fromRGB(50,50,50)
+				for i,v in pairs(mainframe.Holders:GetChildren()) do
+					if v ~= tab then
+						v.BackgroundColor3 = Color3.fromRGB(0,0,0)
+					end
+				end
+			end
+		end
+		tab.MouseButton1Click:Connect(function()
+			vify()
+		end)
+		if frames[1] == newframe then
+			vify()
+		end
+		return newframe
+	end
+	
+	function createbutton(frame, text, scriptie)
+		local int = tablefind(framenames, frame)
+		frame = frames[int]
+		local button = storage.Button1:Clone()
+		button.Parent = frame
+		button.Text = text
+		button.Name = #frame:GetChildren()
+		local total = tonumber(button.Name) - 1
+		local p1 = 0
+		local p2 = 0
+		p2 = math.floor(total / 2) * (button.Size.Y.Offset + button.Size.Y.Offset/2)
+		p1 = total/2 - math.floor(total / 2)
+		button.Position = UDim2.new(p1,5,0,p2 + 1)
+		button.Visible = true
+		frame.CanvasSize = UDim2.fromOffset(0,p2 + button.Size.Y.Offset + 2)
+		if scriptie then
+			button.MouseButton1Click:Connect(function()
+				scriptie()
+			end)
+		end
+	
+		return button
+	end
+	
+	------------------------------------------------ M I S C ----------------------------------------------------------
+	createframe("Misc")
+	
+	createbutton("Misc", "Walk speed [Number]", function()
+		gethumanoid().WalkSpeed = gettext()
+	end)
+	
+	createbutton("Misc", "Gravity [Number]", function()
+		workspace.Gravity = gettext()
+	end)
+	
+	createbutton("Misc", "Jump power [Number]", function()
+		gethumanoid().JumpPower = gettext()
+	end)
+	
+	local flybutton = createbutton("Misc", "Fly [off]")
+	flybutton.MouseButton1Click:Connect(function()
+		if flying == false then
+			flybutton.Text = "Fly [on]"
+			fly()
+		else
+			flybutton.Text = "Fly [off]"
+			unfly()
+		end
+	end)
+	
+	createbutton("Misc", "Fly speed [number]", function()
+		setspeedfly(gettext())
+	end)
+	
+	createbutton("Misc", "Goto [Plr]", function()
+		getroot().CFrame = getroot(getplr(gettext())).CFrame + getroot(getplr(gettext())).CFrame.LookVector * 1.5
+	end)
+	
+	local noclipbutton = createbutton("Misc", "Noclip [Off]")
+	noclipbutton.MouseButton1Click:Connect(function()
+		if noclipping == false then
+			noclipbutton.Text = "Noclip [On]"
+		else
+			noclipbutton.Text = "Noclip [Off]"
+		end
+		noclip()
+	end)
+	
+	local spinbutton = createbutton("Misc", "Spin [Number], [Off]")
+	local spinning = false
+	spinbutton.MouseButton1Click:Connect(function()
+		if lp.Character.HumanoidRootPart:FindFirstChild("HarambeSpin") then
+			spinning = true
+			spinbutton.Text = "Spin [Number], [Off]"
+		else
+			spinning = false
+			spinbutton.Text = "Spin [Number], [On]"
+		end
+		if spinning == false then
+			local spin = Instance.new("BodyAngularVelocity",lp.Character.HumanoidRootPart)
+			spin.Name = "HarambeSpin"
+			spin.MaxTorque = Vector3.new(0,'inf',0)
+			spin.AngularVelocity = Vector3.new(0,gettext(),0)
+		else
+			repeat
+				lp.Character.HumanoidRootPart:FindFirstChild("HarambeSpin"):Destroy()
+			until not lp.Character.HumanoidRootPart:FindFirstChild("HarambeSpin")
+		end	
+	end)
+	
+	local afkpressed = false
+	local antiafk = createbutton("Misc", "Anti afk [Off]")
+	antiafk.MouseButton1Click:Connect(function()
+	    afkpressed = not afkpressed
+		if afkpressed == true then
+			antiafk.Text = "Anti afk [on]"
+		else
+			antiafk.Text = "Anti afk [off]"
+		end
+		if afkpressed == true then
+			local vu = game:GetService("VirtualUser")
+			local idler = game:GetService("Players").LocalPlayer.Idled:connect(function()
+				vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+				wait(1)
+				vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+			end)
+			repeat wait() until afkpressed == false
+			idler:Disconnect()
+			print("Stopped")
+		end
+	end)
+	
+	local sit = createbutton("Misc", "Sit [Off]")
+	sit.MouseButton1Click:Connect(function()
+	   if gethumanoid().Sit == true then
+	        sit.Text = "Sit [Off]"
+	   else
+	       sit.Text = "Sit [On]"
+	   end
+	   gethumanoid().Sit = not gethumanoid().Sit
+	end)
+	
+	------------------------------------------------ PERSONAL SCRIPTS ------------------------------------------------
+	
+	createframe("San Scripts")
+	
+	createbutton("San Scripts", "Bleak Admin", function()
+	    loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/Bleak-Admin/main/source"))()
+	end)
+	
+	createbutton("San Scripts", "Harambe Bypass [Chat Bypasser]", function()
+	    loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/chat-bypasser/main/Main"))()
+	end)
+	
+	----------------------------------------------------------------------------------------------------------------------- NINJA SIMULATOR
+	
+	createframe("Ninja Simulator")
+	antismokeclicked = false
+	local antismokebomb = createbutton("Ninja Simulator", "Anti Smoke Bomb [Not used]")
+	antismokebomb.MouseButton1Click:Connect(function()
+		if antismokeclicked == false then
+			antismokeclicked = true
+			antismokebomb.Text = "Anti Smoke Bomb [Used]"
+			lp.PlayerGui.ChildAdded:Connect(function(thing)
+				game:GetService("RunService").Stepped:Wait()
+				if thing.Name == "SmokeScreen" then
+					thing:Destroy()
+				end
+			end)
+		end
+	end)
+	
+	createbutton("Ninja Simulator", "Kill [Plr]", function()
+		local target = getplr(gettext()).Name
+		function damage(plr)
+			if plr then
+				local A_1 = game.Players[plr].Character.Humanoid
+				local A_2 = "spirit"
+				local Event = game:GetService("ReplicatedStorage").Remotes.Damage
+				Event:InvokeServer(A_1, A_2)
+			end
+		end
+	
+		if target then
+			repeat
+				game:GetService("RunService").Stepped:Wait()
+				spawn(function()
+					pcall(function()
+						damage(target)
+					end)
+				end)
+			until not game.Players:FindFirstChild(target) or game.Players[target].Character.Humanoid.Health <= 0
+		end
+	end)
+	
+	createbutton("Ninja Simulator", "Anti Knockback", function()
+		getroot().ChildAdded:Connect(function(part)
+			game:GetService("RunService").Stepped:Wait()
+			if part:IsA("BodyVelocity") then
+				part:Destroy()
+			end
+		end)
+	end)
+	
+	createbutton("Ninja Simulator", "Knockback [Plr], [Speed], [Time]", function()
+		local args = split(gettext()," ")
+		local function knockback(plr,int1,int2)
+			local A_1 = game.Players[plr].Character.Humanoid
+			local A_2 = int1 -- speed
+			local A_3 = int2 -- time
+			local Event = game:GetService("ReplicatedStorage").Remotes.Knockback
+			Event:InvokeServer(A_1, A_2, A_3)
+		end
+		knockback(getplr(args[1]).Name, args[2], args[3])
+	end)
+	
+	createbutton("Ninja Simulator", "Reflect damage [Plr]", function()
+		local target = getplr(gettext()).Name
+		local function knockback(plr,int1,int2)
+			local A_1 = game.Players[plr].Character.Humanoid
+			local A_2 = int1 -- speed
+			local A_3 = int2 -- time
+			local Event = game:GetService("ReplicatedStorage").Remotes.Knockback
+			Event:InvokeServer(A_1, A_2, A_3)
+		end
+	
+		local function damage(plr)
+			local A_1 = game.Players[plr].Character.Humanoid
+			local A_2 = "spirit"
+			local tool = game.Players[plr].Character:FindFirstChildWhichIsA("Tool")
+			if tool then
+				if tool.Name == "Frozen Heart" then
+					A_2 = "frozen"
+				elseif tool.Name == "Neptas" or tool.Name == "Spirt Of Life" or tool.Name == "Bloody Heart" or tool.Name == "Flaming Katana" then
+					A_2 = "spirit"
+					if tool.Name == "Neptas" then
+						knockback(plr, 5234000,2342344)
+					elseif tool.Name == "Bloody Heart" then
+						knockback(plr, 100,0.2)
+					else
+						knockback(plr, 50,0.15)
+					end
+				elseif tool.Name:lower():match("katana") or tool.Name:lower():match("blade") or tool.Name:lower():match("katana") or tool.Name:lower():match("slimy") or tool.Name:lower():match("rainbow") or tool.Name:lower():match("oof") or tool.Name == "X" then
+					A_2 = "katana"
+				else
+					A_2 = "katana"
+					knockback(plr, 25,0.2)
+				end
+			else
+				A_2 = "punch"
+				knockback(plr, 25,0.2)
+			end
+			local Event = game:GetService("ReplicatedStorage").Remotes.Damage
+			Event:InvokeServer(A_1, A_2)
+		end
+		local lastname = ""
+		local used = false
+		game.Players[target].Character.Humanoid.ChildAdded:Connect(function(part)
+			if part.Name == "creator" and part:IsA("ObjectValue") and used == false then
+				used = true
+				damage(part.Value.Name)
+			end
+			game:GetService("RunService").Stepped:Wait()
+		end)
+	end)
+	
+	createbutton("Ninja Simulator", "Mute [Plr]", function()
+		local player = getplr(gettext()).Name
+		while game:GetService"RunService".Stepped:Wait() do
+			if game.Players:FindFirstChild(player) then
+				local fluteie = game.Players[player].Character:FindFirstChild("Flute")
+				if fluteie then
+					fluteie = fluteie.Handle
+					local sound = fluteie:FindFirstChildWhichIsA("Sound")
+					if sound then
+						sound.Playing = false
+					end
+				end
+			end
+		end
+	end)
+	
+	createbutton("Ninja Simulator", "Mod sword airtime [Number]", function()
+		for i,v in pairs(lp.Backpack:GetChildren()) do
+			if v:FindFirstChild"Katana" then
+				v.Configuration.Air_Time.Value = gettext()
+			end
+		end
+	
+		for i,v in pairs(lp.Character:GetChildren()) do
+			if v:FindFirstChild"Katana" then
+				v.Configuration.Air_Time.Value = gettext()
+			end
+		end
+	end)
+	
+	createbutton("Ninja Simulator", "Mod sword speed [Number]", function()
+		for i,v in pairs(lp.Backpack:GetChildren()) do
+			if v:FindFirstChild"Katana" then
+				v.Configuration.Swing_Speed.Value = gettext()
+			end
+		end
+	
+		for i,v in pairs(lp.Character:GetChildren()) do
+			if v:FindFirstChild"Katana" then
+				v.Configuration.Swing_Speed.Value = gettext()
+			end
+		end
+	end)
+	
+	createbutton("Ninja Simulator", "Mod sword knockback [Number]", function()
+		for i,v in pairs(lp.Backpack:GetChildren()) do
+			if v:FindFirstChild"Katana" then
+				v.Configuration.Knock_Force.Value = gettext()
+			end
+		end
+	
+		for i,v in pairs(lp.Character:GetChildren()) do
+			if v:FindFirstChild"Katana" then
+				v.Configuration.Knock_Force.Value = gettext()
+			end
+		end
+	end)
+	
+	createbutton("Ninja Simulator", "Crash", function()
+		local function fix()
+			spawn(function()
+				game:GetService("ReplicatedStorage").Remotes.FixChar:FireServer();
+			end)
+		end
+		for i = 1,20 do
+			spawn(function()
+				while game:GetService"RunService".Stepped:Wait() do
+					for i = 1,50 do
+						fix()
+					end
+				end
+			end)
+		end
+	end)
+	
+	createbutton("Ninja Simulator", "Increase sword damage", function()
+		for i,v in pairs(lp.Backpack:GetChildren()) do
+			if v:FindFirstChild"Katana" then
+				v:FindFirstChildWhichIsA("LocalScript"):Clone().Parent = v
+			end
+		end
+	
+		for i,v in pairs(lp.Character:GetChildren()) do
+			if v:FindFirstChild"Katana" then
+				v:FindFirstChildWhichIsA("LocalScript"):Clone().Parent = v
+			end
+		end
+	end)
+	
+	----------------------------------------------------------------------------------------------------------------------------
+	
+end
+coroutine.wrap(STFCVRJ_fake_script)()
+local function SPVS_fake_script() -- Minimize.LocalScript 
+	local script = Instance.new('LocalScript', Minimize)
+
+	local timeer = 0.25
+	local mainframe = script.Parent.Parent.MainFrame
+	local title = mainframe.Parent
+	local pressed = false
+	mainframe:TweenSize(UDim2.fromScale(mainframe.Size.X.Scale,0), Enum.EasingDirection.In,Enum.EasingStyle.Linear,0,false,function()
+		title.Values.Visible = false
+		mainframe.Visible = false
+		title.BackgroundTransparency = 0.7
+		title:TweenSize(UDim2.fromScale(0.205319148/2,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,0,false,function()
+			pressed = true
+		end)
+	end)
+	script.Parent.MouseButton1Click:Connect(function()
+		if pressed == false then
+			mainframe:TweenSize(UDim2.fromScale(mainframe.Size.X.Scale,0), Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
+				title.Values.Visible = false
+				mainframe.Visible = false
+				title:TweenSize(UDim2.fromScale(0.205319148/2,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
+					title.BackgroundTransparency = 0.7
+					pressed = true
+				end)
+			end)
+		else
+			mainframe.Visible = true
+			title.BackgroundTransparency = 0
+			mainframe:TweenSize(UDim2.fromScale(mainframe.Size.X.Scale,10), Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
+				title.Values.Visible = true
+				title:TweenSize(UDim2.fromScale(0.205319148,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
+					pressed = false
+				end)
+			end)
+		end
+	end)
+end
+coroutine.wrap(SPVS_fake_script)()
