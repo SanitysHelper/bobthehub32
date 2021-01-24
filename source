@@ -882,7 +882,54 @@ local function STFCVRJ_fake_script() -- MainFrame.LocalScript
 		end
 	end)
 	
-	----------------------------------------------------------------------------------------------------------------------------
+	------------------------------ Ragdoll Engine
+	createframe("Ragdoll Engine")
+	
+	local push = createbutton("Ragdoll Engine", "Push [Off]")
+	local pushing = false
+	push.MouseButton1Click:Connect(function()
+		pushing = not pushing
+		if pushing == true then
+			push.Text = "Super Push [On]"
+		else
+			push.Text = "Super Push [Off]"
+		end
+		if pushing == true then
+			while pushing == true and game:GetService("RunService").Stepped:Wait() do
+				local Event = game.Players.LocalPlayer.Character:FindFirstChild("Push") or game.Players.LocalPlayer.Backpack:FindFirstChild("Push")
+				if Event then
+					Event = Event.PushEvent
+					Event:FireServer()
+				end
+			end
+		end
+	end)
+	
+	local antirag = createbutton("Ragdoll Engine", "Anti ragdoll")
+	local norag = false
+	antirag.MouseButton1Click:Connect(function()
+		norag = not norag
+		if norag == true then
+			antirag.Text = "Anti ragdoll [On]"
+		else
+			antirag.Text = "Anti ragdoll [Off]"
+		end
+		if norag == true then
+			local harderpushman = getroot().ChildAdded:Connect(function(v)
+				if v:IsA("BodyForce") then
+					game:GetService("RunService").Stepped:Wait()
+					v:Destroy()
+				end
+			end)
+			while game:GetService"RunService".Stepped:Wait() and norag == true do
+				local bool_1 = false;
+				local Target = game:GetService("ReplicatedStorage").LocalRagdollEvent;
+				Target:Fire(bool_1);
+			end
+			harderpushman:Disconnect()
+		end
+	end)
+	-----------------------------------------------------------------
 	
 end
 coroutine.wrap(STFCVRJ_fake_script)()
