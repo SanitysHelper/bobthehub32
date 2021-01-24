@@ -206,7 +206,7 @@ local function STFCVRJ_fake_script() -- MainFrame.LocalScript
 	local uis = game:GetService("UserInputService")
 	uis.InputBegan:Connect(function(key)
 		if key.KeyCode == Enum.KeyCode.Minus then
-			game:GetService("RunService").Stepped:Wait()
+			wait()
 			mainframe.Parent.Values:CaptureFocus()
 		end
 	end)
