@@ -1,4 +1,3 @@
-repeat wait() until game:IsLoaded()
 -- Gui to Lua
 -- Version: 3.2
 
@@ -28,13 +27,15 @@ Title.Name = "Title"
 Title.Parent = ScreenGui
 Title.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Title.BorderColor3 = Color3.fromRGB(255, 255, 255)
-Title.Position = UDim2.new(0.371914953, 0, 0.382239372, 0)
-Title.Size = UDim2.new(0.205319148, 0, 0.0207400256, 0)
+Title.Position = UDim2.new(-1.76719623e-05, 0, 0.715572774, 0)
+Title.Size = UDim2.new(0.255319148, 0, 0.0257400256, 0)
 Title.Font = Enum.Font.Fantasy
 Title.Text = "bob the hub"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextScaled = true
 Title.TextSize = 14.000
+Title.TextStrokeColor3 = Color3.fromRGB(154, 0, 0)
+Title.TextStrokeTransparency = 0.600
 Title.TextWrapped = true
 
 MainFrame.Name = "MainFrame"
@@ -56,7 +57,6 @@ Holders.CanvasSize = UDim2.new(2, 0, 0, 0)
 Holders.MidImage = "rbxassetid://5903324492"
 Holders.ScrollBarThickness = 2
 Holders.TopImage = "rbxassetid://5903324492"
-Holders.ScrollBarImageColor3 = Color3.fromRGB(140, 234, 255)
 
 UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(0.89, Color3.fromRGB(0, 0, 0)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(0, 0, 0))}
 UIGradient.Rotation = 270
@@ -88,12 +88,12 @@ Values.Parent = Title
 Values.BackgroundColor3 = Color3.fromRGB(49, 49, 49)
 Values.BorderColor3 = Color3.fromRGB(255, 255, 255)
 Values.BorderSizePixel = 0
-Values.Position = UDim2.new(0.699999988, 0, 0, 0)
-Values.Size = UDim2.new(0.300000012, 0, 1, 0)
+Values.Position = UDim2.new(0.75, 0, 0, 0)
+Values.Size = UDim2.new(0.25, 0, 1, 0)
 Values.Font = Enum.Font.SourceSans
 Values.PlaceholderColor3 = Color3.fromRGB(99, 99, 99)
 Values.PlaceholderText = "Name/Value here"
-Values.Text = "press - to focus"
+Values.Text = "Press - to focus"
 Values.TextColor3 = Color3.fromRGB(255, 255, 255)
 Values.TextScaled = true
 Values.TextSize = 14.000
@@ -108,6 +108,7 @@ Tab1.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Tab1.BorderColor3 = Color3.fromRGB(255, 255, 255)
 Tab1.Size = UDim2.new(0, 75, 1, 0)
 Tab1.Visible = false
+Tab1.AutoButtonColor = false
 Tab1.Font = Enum.Font.SourceSans
 Tab1.Text = "Tab1"
 Tab1.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -123,6 +124,7 @@ Button1.Position = UDim2.new(0, 1, 0, 1)
 Button1.Size = UDim2.new(0.5, -11, 0, 23)
 Button1.Visible = false
 Button1.ZIndex = 2
+Button1.AutoButtonColor = false
 Button1.Font = Enum.Font.SourceSans
 Button1.Text = "Button1"
 Button1.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -135,11 +137,13 @@ UICorner.Parent = Button1
 
 Outline.Name = "Outline"
 Outline.Parent = Button1
+Outline.Active = false
 Outline.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Outline.BackgroundTransparency = 0.200
 Outline.BorderColor3 = Color3.fromRGB(255, 255, 255)
 Outline.Position = UDim2.new(0, -1, 0, -1)
 Outline.Size = UDim2.new(1, 2, 1, 2)
+Outline.AutoButtonColor = false
 Outline.Font = Enum.Font.SourceSans
 Outline.Text = ""
 Outline.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -162,17 +166,55 @@ Frame1.BottomImage = "rbxassetid://5903324492"
 Frame1.MidImage = "rbxassetid://5903324492"
 Frame1.ScrollBarThickness = 4
 Frame1.TopImage = "rbxassetid://5903324492"
-Frame1.ScrollBarImageColor3 = Color3.fromRGB(140, 234, 255)
 
 -- Scripts:
 
-local function STFCVRJ_fake_script() -- MainFrame.LocalScript 
+local function HXDW_fake_script() -- MainFrame.LocalScript 
 	local script = Instance.new('LocalScript', MainFrame)
 
+	local version = 1.1
+	local name = "bobthehub32 v"..version
+	
+	
+	local storage = script.Parent.Parent.Parent.Storage
+	local mainframe = script.Parent
+	local lp = game.Players.LocalPlayer
+	mainframe.Parent.Text = "Loading"
+	
+	
 	function tablefind(table, thing)
 		for i,v in pairs(table) do
 			if v == thing then
 				return i
+			end
+		end
+	end
+	
+	function mouseify(button)
+		if button:IsA("TextButton") then
+			local p = button:FindFirstChild("Outline")
+			if p then
+				button.MouseEnter:Connect(function()
+					p.BackgroundColor3 = Color3.new(0, 0.0156863, 1)
+					button.BackgroundColor3 = Color3.fromRGB(86, 86, 86)
+					button.TextColor3 = Color3.new(1, 1, 1)
+					button.MouseLeave:Wait()
+					p.BackgroundColor3 = Color3.new(1,1,1)
+					button.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+					button.TextColor3 = Color3.new(1,1,1)
+				end)
+			else
+				button.MouseEnter:Connect(function()
+					button.BackgroundColor3 = Color3.fromRGB(86, 86, 86)
+					button.TextColor3 = Color3.new(1, 1, 1)
+					button.MouseLeave:Wait()
+					if mainframe:FindFirstChild"Selected" and mainframe.Selected.Value == button then
+						button.BackgroundColor3 = Color3.fromRGB(50,50,50)
+					else
+						button.BackgroundColor3 = Color3.fromRGB(0,0,0)
+					end
+					button.TextColor3 = Color3.new(1,1,1)
+				end)
 			end
 		end
 	end
@@ -196,17 +238,10 @@ local function STFCVRJ_fake_script() -- MainFrame.LocalScript
 		return returning
 	end
 	
-	local debugmode = true
-	
-	local storage = script.Parent.Parent.Parent.Storage
-	local mainframe = script.Parent
-	local lp = game.Players.LocalPlayer
-	
-	
 	local uis = game:GetService("UserInputService")
 	uis.InputBegan:Connect(function(key)
 		if key.KeyCode == Enum.KeyCode.Minus then
-			wait()
+			game:GetService("RunService").Stepped:Wait()
 			mainframe.Parent.Values:CaptureFocus()
 		end
 	end)
@@ -255,6 +290,7 @@ local function STFCVRJ_fake_script() -- MainFrame.LocalScript
 			end
 		end)
 		--pos.X.Offset >= 0 and pos.X.Offset <= script.Parent.Parent.AbsoluteSize.X
+		
 		local function modifypos(position, position2)
 			if moveoutofscreen ~= true then
 				if position.X.Offset < 0 then
@@ -266,22 +302,26 @@ local function STFCVRJ_fake_script() -- MainFrame.LocalScript
 				if position.Y.Offset < 0 then
 					position = UDim2.fromOffset(position.X.Offset,0)
 				elseif position2.Y.Offset > gui.AbsoluteSize.Y then
-					position = UDim2.fromOffset(position.X.Offset, gui.AbsoluteSize.Y - guiobject.AbsoluteSize.Y)
+					position = UDim2.fromOffset(position.X.Offset, gui.AbsoluteSize.Y - guiobject.AbsoluteSize.Y - mainframe.AbsoluteSize.Y)
 				end
 			end
 			return position
 		end
-	
-		mouse.Move:Connect(function()
+		
+		local function movegui()
 			if helddown == true then
 				local mpos = UDim2.fromOffset(mouse.X,mouse.Y)
-				local pos = offsettoscale(modifypos(mpos + delta, (mpos+delta) + UDim2.fromOffset(guiobject.AbsoluteSize.X,guiobject.AbsoluteSize.Y)))
+				local pos = offsettoscale(modifypos(mpos + delta, (mpos+delta) + UDim2.fromOffset(guiobject.AbsoluteSize.X,guiobject.AbsoluteSize.Y + mainframe.AbsoluteSize.Y)))
 				if speed > 0 then
 					guiobject:TweenPosition(pos,Enum.EasingDirection.In,Enum.EasingStyle.Linear,speed,true)
 				else
 					guiobject.Position = pos
 				end
 			end
+		end
+		
+		mouse.Move:Connect(function()
+			movegui()
 		end)
 	end
 	
@@ -507,6 +547,9 @@ local function STFCVRJ_fake_script() -- MainFrame.LocalScript
 	local frames = {}
 	local framenames = {}
 	
+	local chosen = Instance.new("ObjectValue", mainframe)
+	chosen.Name = "Selected"
+	
 	function createframe(name)
 		local newframe = storage.Frame1:Clone()
 		newframe.Parent = mainframe.Storagelol
@@ -518,18 +561,18 @@ local function STFCVRJ_fake_script() -- MainFrame.LocalScript
 		tab.Parent = mainframe.Holders
 		tab.Position = UDim2.fromOffset((#mainframe.Holders:GetChildren()-1)*tab.Size.X.Offset, 0)
 		tab.Visible = true
+		mouseify(tab)
 		mainframe.Holders.CanvasSize = UDim2.fromOffset(#mainframe.Holders:GetChildren()*tab.Size.X.Offset,0)
 		local function vify()
-			local chosen = nil
 			for i,v in pairs(mainframe.Storagelol:GetChildren()) do
 				if v ~= newframe then
 					v.Visible = false
 				else
 					v.Visible = true
-					chosen = v
+					chosen.Value = v
 				end
 			end
-			if chosen == newframe then
+			if chosen.Value == newframe then
 				tab.BackgroundColor3 = Color3.fromRGB(50,50,50)
 				for i,v in pairs(mainframe.Holders:GetChildren()) do
 					if v ~= tab then
@@ -538,12 +581,16 @@ local function STFCVRJ_fake_script() -- MainFrame.LocalScript
 				end
 			end
 		end
+		
 		tab.MouseButton1Click:Connect(function()
 			vify()
 		end)
+		
 		if frames[1] == newframe then
 			vify()
 		end
+		wait(0.1)
+		
 		return newframe
 	end
 	
@@ -567,7 +614,8 @@ local function STFCVRJ_fake_script() -- MainFrame.LocalScript
 				scriptie()
 			end)
 		end
-	
+		mouseify(button)
+		wait(0.1)
 		return button
 	end
 	
@@ -589,10 +637,10 @@ local function STFCVRJ_fake_script() -- MainFrame.LocalScript
 	local flybutton = createbutton("Misc", "Fly [off]")
 	flybutton.MouseButton1Click:Connect(function()
 		if flying == false then
-			flybutton.Text = "Fly [on]"
+			flybutton.Text = "Fly [On]"
 			fly()
 		else
-			flybutton.Text = "Fly [off]"
+			flybutton.Text = "Fly [Off]"
 			unfly()
 		end
 	end)
@@ -640,7 +688,7 @@ local function STFCVRJ_fake_script() -- MainFrame.LocalScript
 	local afkpressed = false
 	local antiafk = createbutton("Misc", "Anti afk [Off]")
 	antiafk.MouseButton1Click:Connect(function()
-	    afkpressed = not afkpressed
+		afkpressed = not afkpressed
 		if afkpressed == true then
 			antiafk.Text = "Anti afk [on]"
 		else
@@ -659,14 +707,8 @@ local function STFCVRJ_fake_script() -- MainFrame.LocalScript
 		end
 	end)
 	
-	local sit = createbutton("Misc", "Sit [Off]")
-	sit.MouseButton1Click:Connect(function()
-	   if gethumanoid().Sit == true then
-	        sit.Text = "Sit [Off]"
-	   else
-	       sit.Text = "Sit [On]"
-	   end
-	   gethumanoid().Sit = not gethumanoid().Sit
+	createbutton("Misc", "Reset (kill yourself)", function()
+		gethumanoid().Health = 0
 	end)
 	
 	------------------------------------------------ PERSONAL SCRIPTS ------------------------------------------------
@@ -674,11 +716,11 @@ local function STFCVRJ_fake_script() -- MainFrame.LocalScript
 	createframe("San Scripts")
 	
 	createbutton("San Scripts", "Bleak Admin", function()
-	    loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/Bleak-Admin/main/source"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/Bleak-Admin/main/source"))()
 	end)
 	
 	createbutton("San Scripts", "Harambe Bypass [Chat Bypasser]", function()
-	    loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/chat-bypasser/main/Main"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/chat-bypasser/main/Main"))()
 	end)
 	
 	----------------------------------------------------------------------------------------------------------------------- NINJA SIMULATOR
@@ -882,61 +924,19 @@ local function STFCVRJ_fake_script() -- MainFrame.LocalScript
 		end
 	end)
 	
-	------------------------------ Ragdoll Engine
-	createframe("Ragdoll Engine")
+	----------------------------------------------------------------------------------------------------------------------------
 	
-	local push = createbutton("Ragdoll Engine", "Push [Off]")
-	local pushing = false
-	push.MouseButton1Click:Connect(function()
-		pushing = not pushing
-		if pushing == true then
-			push.Text = "Super Push [On]"
-		else
-			push.Text = "Super Push [Off]"
-		end
-		if pushing == true then
-			while pushing == true and game:GetService("RunService").Stepped:Wait() do
-				local Event = game.Players.LocalPlayer.Character:FindFirstChild("Push") or game.Players.LocalPlayer.Backpack:FindFirstChild("Push")
-				if Event then
-					Event = Event.PushEvent
-					Event:FireServer()
-				end
-			end
-		end
-	end)
 	
-	local antirag = createbutton("Ragdoll Engine", "Anti ragdoll")
-	local norag = false
-	antirag.MouseButton1Click:Connect(function()
-		norag = not norag
-		if norag == true then
-			antirag.Text = "Anti ragdoll [On]"
-		else
-			antirag.Text = "Anti ragdoll [Off]"
-		end
-		if norag == true then
-			local harderpushman = getroot().ChildAdded:Connect(function(v)
-				if v:IsA("BodyForce") then
-					game:GetService("RunService").Stepped:Wait()
-					v:Destroy()
-				end
-			end)
-			while game:GetService"RunService".Stepped:Wait() and norag == true do
-				local bool_1 = false;
-				local Target = game:GetService("ReplicatedStorage").LocalRagdollEvent;
-				Target:Fire(bool_1);
-			end
-			harderpushman:Disconnect()
-		end
-	end)
-	-----------------------------------------------------------------
-	
+	local loaded = Instance.new("BoolValue", mainframe.Parent)
+	loaded.Name = "Loaded"
+	loaded.Value = true
+	mainframe.Parent.Text = name
 end
-coroutine.wrap(STFCVRJ_fake_script)()
-local function SPVS_fake_script() -- Minimize.LocalScript 
+coroutine.wrap(HXDW_fake_script)()
+local function XJMQZ_fake_script() -- Minimize.LocalScript 
 	local script = Instance.new('LocalScript', Minimize)
 
-	local timeer = 0.25
+	local timeer = 0.5
 	local mainframe = script.Parent.Parent.MainFrame
 	local title = mainframe.Parent
 	local pressed = false
@@ -944,7 +944,7 @@ local function SPVS_fake_script() -- Minimize.LocalScript
 		title.Values.Visible = false
 		mainframe.Visible = false
 		title.BackgroundTransparency = 0.7
-		title:TweenSize(UDim2.fromScale(0.205319148/2,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,0,false,function()
+		title:TweenSize(UDim2.fromScale(0.255/2,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,0,false,function()
 			pressed = true
 		end)
 	end)
@@ -953,7 +953,7 @@ local function SPVS_fake_script() -- Minimize.LocalScript
 			mainframe:TweenSize(UDim2.fromScale(mainframe.Size.X.Scale,0), Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
 				title.Values.Visible = false
 				mainframe.Visible = false
-				title:TweenSize(UDim2.fromScale(0.205319148/2,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
+				title:TweenSize(UDim2.fromScale(0.255/2,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
 					title.BackgroundTransparency = 0.7
 					pressed = true
 				end)
@@ -963,11 +963,21 @@ local function SPVS_fake_script() -- Minimize.LocalScript
 			title.BackgroundTransparency = 0
 			mainframe:TweenSize(UDim2.fromScale(mainframe.Size.X.Scale,10), Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
 				title.Values.Visible = true
-				title:TweenSize(UDim2.fromScale(0.205319148,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
+				title:TweenSize(UDim2.fromScale(0.255,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
 					pressed = false
 				end)
 			end)
 		end
 	end)
+	
+	repeat wait() until mainframe.Parent:FindFirstChild("Loaded")
+	mainframe.Visible = true
+	title.BackgroundTransparency = 0
+	mainframe:TweenSize(UDim2.fromScale(mainframe.Size.X.Scale,10), Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
+		title.Values.Visible = true
+		title:TweenSize(UDim2.fromScale(0.255,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
+			pressed = false
+		end)
+	end)
 end
-coroutine.wrap(SPVS_fake_script)()
+coroutine.wrap(XJMQZ_fake_script)()
