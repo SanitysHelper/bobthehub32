@@ -88,14 +88,13 @@ Values.Parent = Title
 Values.BackgroundColor3 = Color3.fromRGB(49, 49, 49)
 Values.BorderColor3 = Color3.fromRGB(255, 255, 255)
 Values.BorderSizePixel = 0
-Values.Position = UDim2.new(0.75, 0, 0, 0)
-Values.Size = UDim2.new(0.25, 0, 1, 0)
+Values.Position = UDim2.new(0.733333409, 0, 0, 0)
+Values.Size = UDim2.new(0.266666681, 0, 1, 0)
 Values.Font = Enum.Font.SourceSans
 Values.PlaceholderColor3 = Color3.fromRGB(99, 99, 99)
 Values.PlaceholderText = "Name/Value here"
 Values.Text = "Press - to focus"
 Values.TextColor3 = Color3.fromRGB(255, 255, 255)
-Values.TextScaled = true
 Values.TextSize = 14.000
 Values.TextWrapped = true
 
@@ -169,16 +168,18 @@ Frame1.TopImage = "rbxassetid://5903324492"
 
 -- Scripts:
 
-local function HXDW_fake_script() -- MainFrame.LocalScript 
+local function BNWJ_fake_script() -- MainFrame.LocalScript 
 	local script = Instance.new('LocalScript', MainFrame)
 
-	local version = 1.1
+	local version = 1.2
 	local name = "bobthehub32 v"..version
 	
 	
 	local storage = script.Parent.Parent.Parent.Storage
 	local mainframe = script.Parent
 	local lp = game.Players.LocalPlayer
+	local chosen = Instance.new("ObjectValue", mainframe)
+	chosen.Name = "Selected"
 	mainframe.Parent.Text = "Loading"
 	
 	
@@ -208,7 +209,7 @@ local function HXDW_fake_script() -- MainFrame.LocalScript
 					button.BackgroundColor3 = Color3.fromRGB(86, 86, 86)
 					button.TextColor3 = Color3.new(1, 1, 1)
 					button.MouseLeave:Wait()
-					if mainframe:FindFirstChild"Selected" and mainframe.Selected.Value == button then
+					if chosen.Value.Name.."Tab" == button.Name then
 						button.BackgroundColor3 = Color3.fromRGB(50,50,50)
 					else
 						button.BackgroundColor3 = Color3.fromRGB(0,0,0)
@@ -217,6 +218,10 @@ local function HXDW_fake_script() -- MainFrame.LocalScript
 				end)
 			end
 		end
+	end
+	
+	function charadded(runscript)
+		runscript()
 	end
 	
 	function split(text, splitter)
@@ -290,7 +295,7 @@ local function HXDW_fake_script() -- MainFrame.LocalScript
 			end
 		end)
 		--pos.X.Offset >= 0 and pos.X.Offset <= script.Parent.Parent.AbsoluteSize.X
-		
+	
 		local function modifypos(position, position2)
 			if moveoutofscreen ~= true then
 				if position.X.Offset < 0 then
@@ -307,7 +312,7 @@ local function HXDW_fake_script() -- MainFrame.LocalScript
 			end
 			return position
 		end
-		
+	
 		local function movegui()
 			if helddown == true then
 				local mpos = UDim2.fromOffset(mouse.X,mouse.Y)
@@ -319,7 +324,7 @@ local function HXDW_fake_script() -- MainFrame.LocalScript
 				end
 			end
 		end
-		
+	
 		mouse.Move:Connect(function()
 			movegui()
 		end)
@@ -338,6 +343,27 @@ local function HXDW_fake_script() -- MainFrame.LocalScript
 			return plr.Character:WaitForChild("Humanoid")
 		end
 	end
+	
+	function gettools(parttype)
+		if parttype == "char" then
+			local number = 0
+			for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if v:IsA("Tool") and v:FindFirstChild("Handle") then
+					number = number + 1
+				end
+			end
+			return number
+		elseif parttype == "backpack" then
+			local number = 0
+			for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+				if v:IsA("Tool") and v:FindFirstChild"Handle" then
+					number = number + 1
+				end
+			end
+			return number
+		end
+	end
+	
 	
 	function getroot(plr)
 		if not plr then
@@ -547,9 +573,6 @@ local function HXDW_fake_script() -- MainFrame.LocalScript
 	local frames = {}
 	local framenames = {}
 	
-	local chosen = Instance.new("ObjectValue", mainframe)
-	chosen.Name = "Selected"
-	
 	function createframe(name)
 		local newframe = storage.Frame1:Clone()
 		newframe.Parent = mainframe.Storagelol
@@ -561,6 +584,7 @@ local function HXDW_fake_script() -- MainFrame.LocalScript
 		tab.Parent = mainframe.Holders
 		tab.Position = UDim2.fromOffset((#mainframe.Holders:GetChildren()-1)*tab.Size.X.Offset, 0)
 		tab.Visible = true
+		tab.Name = name.."Tab"
 		mouseify(tab)
 		mainframe.Holders.CanvasSize = UDim2.fromOffset(#mainframe.Holders:GetChildren()*tab.Size.X.Offset,0)
 		local function vify()
@@ -581,17 +605,28 @@ local function HXDW_fake_script() -- MainFrame.LocalScript
 				end
 			end
 		end
-		
+	
 		tab.MouseButton1Click:Connect(function()
 			vify()
 		end)
-		
+	
 		if frames[1] == newframe then
 			vify()
 		end
 		wait(0.1)
-		
+	
 		return newframe
+	end
+	
+	function getnumber(string)
+		string = split(string,"")
+		local crap = ""
+		for i,v in pairs(string) do
+			if v == "1" or v == "2" or v == "3" or v == "4" or v == "5" or v == "6" or v == "7" or v == "8" or v == "9" or v == "0" then
+				crap = crap..v
+			end
+		end
+		return tonumber(crap)
 	end
 	
 	function createbutton(frame, text, scriptie)
@@ -600,8 +635,8 @@ local function HXDW_fake_script() -- MainFrame.LocalScript
 		local button = storage.Button1:Clone()
 		button.Parent = frame
 		button.Text = text
-		button.Name = #frame:GetChildren()
-		local total = tonumber(button.Name) - 1
+		button.Name = #frame:GetChildren().." BUTTON cool"
+		local total = tonumber(getnumber(button.Name)) - 1
 		local p1 = 0
 		local p2 = 0
 		p2 = math.floor(total / 2) * (button.Size.Y.Offset + button.Size.Y.Offset/2)
@@ -618,6 +653,19 @@ local function HXDW_fake_script() -- MainFrame.LocalScript
 		wait(0.1)
 		return button
 	end
+	
+	mainframe.Parent.Values.Changed:Connect(function()
+		local textbox = mainframe.Parent.Values
+		local max = mainframe.Parent.AbsoluteSize.X
+		local x = (textbox.TextBounds.X + 10) / max
+		if x > 80 / max and x <= 1  then
+			mainframe.Parent.Values:TweenSizeAndPosition(UDim2.fromScale(x , 1), UDim2.fromScale(1-x, 0), Enum.EasingDirection.In,Enum.EasingStyle.Linear,0.1, true)
+		elseif x <= 1 then
+			mainframe.Parent.Values:TweenSizeAndPosition(UDim2.fromScale(80 / max , 1), UDim2.fromScale(1 - (80 / max)), Enum.EasingDirection.In,Enum.EasingStyle.Linear,0.1, true)
+		else
+			mainframe.Parent.Values:TweenSizeAndPosition(UDim2.fromScale(1, 1), UDim2.fromScale(0, 0), Enum.EasingDirection.In,Enum.EasingStyle.Linear,0.1, true)
+		end
+	end)
 	
 	------------------------------------------------ M I S C ----------------------------------------------------------
 	createframe("Misc")
@@ -690,9 +738,9 @@ local function HXDW_fake_script() -- MainFrame.LocalScript
 	antiafk.MouseButton1Click:Connect(function()
 		afkpressed = not afkpressed
 		if afkpressed == true then
-			antiafk.Text = "Anti afk [on]"
+			antiafk.Text = "Anti afk [On]"
 		else
-			antiafk.Text = "Anti afk [off]"
+			antiafk.Text = "Anti afk [Off]"
 		end
 		if afkpressed == true then
 			local vu = game:GetService("VirtualUser")
@@ -711,6 +759,131 @@ local function HXDW_fake_script() -- MainFrame.LocalScript
 		gethumanoid().Health = 0
 	end)
 	
+	createbutton("Misc", "Drop hats", function()
+		for i,v in pairs(lp.Character:GetDescendants()) do
+			if v:IsA("Accessory") or v:IsA("Hat") then
+				v.Parent = workspace
+			end
+		end
+	end)
+	
+	createbutton("Misc", "Remove fog", function()
+		game.Lighting.FogStart = 0
+		game.Lighting.FogEnd = 0
+	end)
+	
+	createbutton("Misc", "Edit fog [Start], [End]", function()
+		local args = split(gettext(), " ")
+		game.Lighting.FogStart = args[1]
+		game.Lighting.FogEnd = args[2]
+	end)
+	
+	local sitbutton = createbutton("Misc", "Sit [Off]")
+	local sitting = false
+	
+	sitbutton.MouseButton1Click:Connect(function()
+		gethumanoid().Sit = not sitting
+		sitting = gethumanoid().Sit
+		if sitting == true then
+			sitbutton.Text = "Sit [On]"
+		else
+			sitbutton.Text = "Sit [Off]"
+		end
+	end)
+	--  22:27:52.869  Script 'Players.Player1.PlayerGui.ScreenGui.Title.MainFrame.LocalScript', Line 652  -  Studio - LocalScript:652
+	--  22:27:52.869  Script 'Players.Player1.PlayerGui.ScreenGui.Title.MainFrame.LocalScript', Line 476  -
+	createbutton("Misc", "Kill", function()
+		local textio = gettext()
+		local function attach()
+			local humanoid = gethumanoid()
+			humanoid.Parent.Animate.Disabled = true
+			local humanoid2 = humanoid:Clone()
+			humanoid2.Parent = humanoid.Parent
+			humanoid:Destroy()
+			humanoid2.Parent.Animate.Disabled = false
+			game.Workspace.Camera.CameraSubject = game.Players.LocalPlayer.Character
+			humanoid2.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+			for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+				if v:IsA("Tool") and v:FindFirstChildWhichIsA("BasePart") then
+					v.Parent = lp.Character
+				end
+			end
+		end
+		local victim = getplr(textio)
+		local victimroot = getroot(victim)
+		local oldpos = getroot().CFrame
+		attach()
+		local hrp = getroot() 
+		local done = false
+		spawn(function()
+			lp.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = oldpos
+		end)
+		repeat
+			game:GetService("RunService").Stepped:Wait()
+			if hrp and hrp.Parent ~= nil and hrp.Parent.Parent ~= nil and gettools("char") <= 0 then
+				hrp.CFrame = CFrame.new(99999999, workspace.FallenPartsDestroyHeight+2,99999999)
+			elseif hrp and hrp.Parent ~= nil and hrp.Parent.Parent ~= nil  then
+				getroot(victim).CFrame = getroot().CFrame + getroot().CFrame.LookVector.Unit * 1.5
+			else
+				done = true
+			end
+		until lp.Character == nil or not getroot() or done == true or not getplr(textio) or getplr(textio).Character == nil
+		
+	end)
+	
+	createbutton("Misc", "Bring [Player]", function()
+		local textio = gettext()
+		local oldcframe = getroot().CFrame
+		local function attach()
+			local humanoid = gethumanoid()
+			humanoid.Parent.Animate.Disabled = true
+			local humanoid2 = humanoid:Clone()
+			humanoid2.Parent = humanoid.Parent
+			humanoid:Destroy()
+			humanoid2.Parent.Animate.Disabled = false
+			game.Workspace.Camera.CameraSubject = game.Players.LocalPlayer.Character
+			humanoid2.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+			for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+				if v:IsA("Tool") and v:FindFirstChildWhichIsA("BasePart") then
+					v.Parent = lp.Character
+				end
+			end
+		end
+		local victim = getplr(textio)
+		local victimroot = getroot(victim)
+		local oldpos = getroot().CFrame
+		attach()
+		local hrp = getroot() 
+		local done = false
+		spawn(function()
+			lp.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = oldpos
+		end)
+		repeat
+			game:GetService("RunService").Stepped:Wait()
+			if hrp and hrp.Parent ~= nil and hrp.Parent.Parent ~= nil and gettools("char") <= 0 then
+				hrp.CFrame = oldcframe
+			elseif hrp and hrp.Parent ~= nil and hrp.Parent.Parent ~= nil  then
+				getroot(victim).CFrame = getroot().CFrame + getroot().CFrame.LookVector.Unit * 1.5
+			else
+				done = true
+			end
+		until lp.Character == nil or not getroot() or done == true or not getplr(textio) or getplr(textio).Character == nil
+	
+	end)
+	
+	charadded(function()
+		spinbutton.Text = "Spin [Number], [Off]"
+		flybutton.Text = "Fly [Off]"
+		sitbutton.Text = "Sit [Off]"
+		gethumanoid().Changed:Connect(function()
+			sitting = gethumanoid().Sit
+			if sitting == true then
+				sitbutton.Text = "Sit [On]"
+			else
+				sitbutton.Text = "Sit [Off]"
+			end
+		end)
+	end)
 	------------------------------------------------ PERSONAL SCRIPTS ------------------------------------------------
 	
 	createframe("San Scripts")
@@ -923,8 +1096,87 @@ local function HXDW_fake_script() -- MainFrame.LocalScript
 			end
 		end
 	end)
+	---------------------------------------------------------------------------------------------------------------------------- Mortem Metallum
+	createframe("Mortem Metallum")
 	
-	----------------------------------------------------------------------------------------------------------------------------
+	createbutton("Mortem Metallum", "Auto Parry [Lasts until you rejoin]", function()
+		function getnearestplayer()
+			local dist = math.huge
+			local chosen = nil
+			for i,v in pairs(game.Players:GetPlayers()) do
+				if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild"Head" then
+					local mag = v:DistanceFromCharacter(game.Players.LocalPlayer.Character.Head.Position)
+					if mag < dist and v ~= game.Players.LocalPlayer then
+						dist = mag
+						chosen = v
+					end
+				end
+			end
+			return chosen, dist
+		end
+	
+		function parry() 
+			equipweapon() 
+			game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool").ability:FireServer()
+			repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild"Parry"
+			repeat wait() until not game.Players.LocalPlayer.Character:FindFirstChild"Parry"
+			equipweapon()
+		end
+	
+		function weaponcheck(part)
+			if part and part ~= nil and part ~= "" then
+				local name = part.Name
+				if name ~= "Snow ball" and name ~= "Explosive present" and name ~= "Grenade" and name ~= "C4" and name ~= "Fire bomb" and name ~= "Bear trap" and name ~= "Firework" and name ~= "Festive Cannon" and name ~= "Trumpet" and name ~= "Health potion" then
+					return true
+				end
+			end
+		end
+	
+		function equipweapon()
+			local player = game.Players.LocalPlayer
+			for i,v in pairs(player.Character:GetChildren()) do
+				if v:IsA("Tool") and not weaponcheck(v) then
+					v.Parent = player.Backpack
+				end
+			end
+			for i,v in pairs(player.Backpack:GetChildren()) do
+				if weaponcheck(v) and v:IsA("Tool") then
+					v.Parent = player.Character
+					break
+				end
+			end
+		end
+	
+		function getplayersweapon(player)
+			player = game.Players[player.Name]
+			if player.Character:FindFirstChildWhichIsA"Tool" and weaponcheck(player.Character:FindFirstChildWhichIsA"Tool") then
+				return player.Character:FindFirstChildWhichIsA"Tool".wep.Value
+			end
+		end
+	
+		function getattacking(player)
+			local weapon = getplayersweapon(player)
+			if weapon then
+				return weapon.Iron.slash.Playing
+			end
+		end
+	
+		function getnearestattacking()
+			local plr, dist = getnearestplayer()
+			if math.abs(dist) <= 12.5 then
+				if getattacking(plr) then
+					return plr
+				end
+			end
+		end
+	
+		game:GetService("RunService").Stepped:connect(function()
+			local attacking = getnearestattacking()
+			if attacking then
+				parry()
+			end
+		end)
+	end)
 	
 	
 	local loaded = Instance.new("BoolValue", mainframe.Parent)
@@ -932,8 +1184,8 @@ local function HXDW_fake_script() -- MainFrame.LocalScript
 	loaded.Value = true
 	mainframe.Parent.Text = name
 end
-coroutine.wrap(HXDW_fake_script)()
-local function XJMQZ_fake_script() -- Minimize.LocalScript 
+coroutine.wrap(BNWJ_fake_script)()
+local function TUYAX_fake_script() -- Minimize.LocalScript 
 	local script = Instance.new('LocalScript', Minimize)
 
 	local timeer = 0.5
@@ -980,4 +1232,4 @@ local function XJMQZ_fake_script() -- Minimize.LocalScript
 		end)
 	end)
 end
-coroutine.wrap(XJMQZ_fake_script)()
+coroutine.wrap(TUYAX_fake_script)()
