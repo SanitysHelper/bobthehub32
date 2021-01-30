@@ -1179,7 +1179,7 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 	end)
 	
 	createbutton("Mortem Metallum", "Xbox Controls", function()
-            local function weaponcheck(part)
+             local function weaponcheck(part)
                 if part and part ~= nil and part ~= "" then
                     local name = part.Name
                     if name ~= "Snow ball" and name ~= "Explosive present" and name ~= "Grenade" and name ~= "C4" and name ~= "Fire bomb" and name ~= "Bear trap" and name ~= "Firework" and name ~= "Festive Cannon" and name ~= "Trumpet" and name ~= "Health potion" then
@@ -1267,12 +1267,19 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
                     equipweapon("C4")
                 end    
                 
-                if key.KeyCode == Enum.KeyCode.ButtonB then
+                if key.KeyCode == Enum.KeyCode.ButtonY then
                     local A_1 = 29
                     local Event = game:GetService("ReplicatedStorage").Item
                     Event:FireServer(A_1)
                 end
+                
+                if key.KeyCode == Enum.KeyCode.ButtonB then
+                    local A_1 = game:GetService("Workspace").PlayersCharacters.ErasedGuestUser
+                    local Event = game:GetService("ReplicatedStorage").kicc
+                    Event:FireServer(A_1)
+                end
             end)
+
 	end)
 	
 	local loaded = Instance.new("BoolValue", mainframe.Parent)
