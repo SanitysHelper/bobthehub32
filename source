@@ -1178,6 +1178,102 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 		end)
 	end)
 	
+	createbutton("Mortem Metallum", "Xbox Controls", function()
+            local function weaponcheck(part)
+                if part and part ~= nil and part ~= "" then
+                    local name = part.Name
+                    if name ~= "Snow ball" and name ~= "Explosive present" and name ~= "Grenade" and name ~= "C4" and name ~= "Fire bomb" and name ~= "Bear trap" and name ~= "Firework" and name ~= "Festive Cannon" and name ~= "Trumpet" and name ~= "Health potion" then
+                        return true
+                    end
+                end
+            end
+            
+            local function equipweapon(tool)
+                if not tool then
+                    local player = game.Players.LocalPlayer
+                    for i,v in pairs(player.Character:GetChildren()) do
+                        if v:IsA("Tool") and not weaponcheck(v) then
+                            v.Parent = player.Backpack
+                        end
+                    end
+                    for i,v in pairs(player.Backpack:GetChildren()) do
+                        if weaponcheck(v) and v:IsA("Tool") then
+                            v.Parent = player.Character
+                            break
+                        end
+                    end
+                    else
+                        local tool = lp.Backpack:FindFirstChild(tool)
+                        if tool then
+                            for i,v in pairs(lp.Character:GetChildren()) do
+                                if v:IsA("Tool") then
+                                    v.Parent = lp.Backpack
+                                end
+                            end
+                        wait()
+                        tool.Parent = lp.Character
+                    end
+                end
+            end
+            
+            local function parry()
+                equipweapon()
+                game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool").ability:FireServer()
+            end
+            
+            local function roll()
+                local hrp = lp.Character:WaitForChild("HumanoidRootPart")
+                local humanoid = lp.Character:WaitForChild("Humanoid")
+                local pos = hrp.Position
+                local velocity = hrp.Velocity
+                local direction = humanoid.MoveDirection
+                local A_1 = direction
+                local A_2 = pos
+                local A_3 = velocity
+                local Event = game:GetService("ReplicatedStorage").dash
+                if direction ~= Vector3.new(0,0,0) then
+                    Event:FireServer(A_1, A_2, A_3)
+                end
+            end
+            
+            game:GetService("UserInputService").InputBegan:Connect(function(key)
+                if key.KeyCode == Enum.KeyCode.ButtonX then
+                    roll()
+                end
+                
+                if key.KeyCode == Enum.KeyCode.ButtonL2 then
+                    parry()
+                end
+                
+                if key.KeyCode == Enum.KeyCode.ButtonL3 then
+                    lp.Character.Runscript.run:FireServer(true)
+                    repeat wait() until key.UserInputState == Enum.UserInputState.End
+                    lp.Character.Runscript.run:FireServer(false)
+                end
+                
+                if key.KeyCode == Enum.KeyCode.DPadUp then
+                    equipweapon()
+                end
+                
+                if key.KeyCode == Enum.KeyCode.DPadDown then
+                    equipweapon("Fire bomb")
+                end
+                
+                if key.KeyCode == Enum.KeyCode.DPadRight then
+                    equipweapon("Grenade")
+                end
+                
+                if key.KeyCode == Enum.KeyCode.DPadLeft then
+                    equipweapon("C4")
+                end    
+                
+                if key.KeyCode == Enum.KeyCode.ButtonB then
+                    local A_1 = 29
+                    local Event = game:GetService("ReplicatedStorage").Item
+                    Event:FireServer(A_1)
+                end
+            end)
+	end)
 	
 	local loaded = Instance.new("BoolValue", mainframe.Parent)
 	loaded.Name = "Loaded"
