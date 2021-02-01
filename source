@@ -893,6 +893,100 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 	createbutton("Misc", "Rejoin", function()
 	    game:GetService("TeleportService"):Teleport(game.PlaceId)
 	end)
+	
+	createbutton("Misc", "Health Bars for All", function()
+	function healthbar(plr)
+	local HealthBar = Instance.new("BillboardGui")
+	local TextLabel = Instance.new("TextLabel")
+	local ImageLabel = Instance.new("ImageLabel")
+	local HealthBar_2 = Instance.new("Frame")
+	local Bar = Instance.new("Frame")
+	local UIGradient = Instance.new("UIGradient")
+
+	HealthBar.Name = "Health Bar"
+	HealthBar.Parent = plr.Character:WaitForChild"Head"
+	HealthBar.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	HealthBar.Active = true
+	HealthBar.ExtentsOffsetWorldSpace = Vector3.new(0, 3, 0)
+	HealthBar.LightInfluence = 0.500
+	HealthBar.Size = UDim2.new(0, 150, 0, 100)
+	HealthBar.SizeOffset = Vector2.new(0, 0.25)
+
+	TextLabel.Parent = HealthBar
+	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.Position = UDim2.new(0, 0, 0.5, 0)
+	TextLabel.Size = UDim2.new(1, 0, 0.129999995, 0)
+	TextLabel.Font = Enum.Font.Highway
+	TextLabel.Text = plr.Name
+	TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+	TextLabel.TextScaled = true
+	TextLabel.TextSize = 14.000
+	TextLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.TextStrokeTransparency = 0.500
+	TextLabel.TextWrapped = true
+
+	ImageLabel.Parent = HealthBar
+	ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ImageLabel.BackgroundTransparency = 1.000
+	ImageLabel.Position = UDim2.new(0.333333343, 0, 0, 0)
+	ImageLabel.Size = UDim2.new(0.333333343, 0, 0.5, 0)
+	ImageLabel.Image = "http://www.roblox.com/asset/?id=4868892267"
+	ImageLabel.ImageColor3 = Color3.fromRGB(255, 0, 0)
+	ImageLabel.Visible = false
+
+	HealthBar_2.Name = "HealthBar"
+	HealthBar_2.Parent = HealthBar
+	HealthBar_2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	HealthBar_2.BorderColor3 = Color3.fromRGB(91, 91, 91)
+	HealthBar_2.BorderSizePixel = 3
+	HealthBar_2.Position = UDim2.new(0.0299999996, 0, 0.75, 0)
+	HealthBar_2.Size = UDim2.new(0.959999979, 0, 0.0700000003, 0)
+	
+	local humanoid = plr.Character:WaitForChild("Humanoid")
+	humanoid.HealthChanged:Connect(function(health)
+		local maxhealth = humanoid.MaxHealth
+		local percent = health/maxhealth
+		Bar.Size = UDim2.fromScale(percent, 1)
+	end)
+
+	Bar.Name = "Bar"
+	Bar.Parent = HealthBar_2
+	Bar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Bar.Size = UDim2.new(1, 0, 1, 0)
+
+	UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(129, 129, 129)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 255, 255))}
+	UIGradient.Rotation = 270
+	UIGradient.Parent = Bar
+end
+
+function charadded(plr, scriptio)
+	spawn(function()
+		scriptio()
+	end)
+	plr.CharacterAdded:Connect(function()
+		spawn(function()
+			scriptio()
+		end)
+	end)
+end
+
+repeat wait() until game:IsLoaded()
+
+for i,v in pairs(game.Players:GetPlayers()) do
+	if v.Name ~= game.Players.LocalPlayer.Name then
+		charadded(v, function()
+			healthbar(v)
+		end)
+	end
+end
+
+game.Players.PlayerAdded:Connect(function(v)
+	charadded(v, function()
+		healthbar(v)
+	end)
+end)
+	end)
 	------------------------------------------------ PERSONAL SCRIPTS ------------------------------------------------
 	
 	createframe("San Scripts")
