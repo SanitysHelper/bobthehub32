@@ -944,6 +944,8 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 	HealthBar_2.Size = UDim2.new(0.959999979, 0, 0.0700000003, 0)
 	
 	local humanoid = plr.Character:WaitForChild("Humanoid")
+	humanoid.NameDisplayDistance = 9
+	humanoid.HealthDisplayDistance = 0
 	humanoid.HealthChanged:Connect(function(health)
 		local maxhealth = humanoid.MaxHealth
 		local percent = health/maxhealth
