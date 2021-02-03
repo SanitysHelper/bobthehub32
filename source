@@ -1001,6 +1001,10 @@ end)
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/chat-bypasser/main/Main"))()
 	end)
 	
+	createbutton("San Scripts", "Controller Customization", function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/Xbox-Customization/main/Main"))()
+	end)
+	
 	----------------------------------------------------------------------------------------------------------------------- NINJA SIMULATOR
 	
 	createframe("Ninja Simulator")
