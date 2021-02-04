@@ -1006,12 +1006,12 @@ end)
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/Xbox-Customization/main/Main"))()
 	end)
 	
-	if setclipboard then -- setting this up
+	if setclipboard then
 	    createbutton("San Scripts", "Generate Xbox script for current game", function()
 		if isfolder(game.GameId) then
 		    local savage
 		    for i,v in pairs(listfiles(game.GameId)) do
-			savage = readfile(v).."\n"
+			savage = savage..readfile(v).."\n"
 		    end
 		    setclipboard(savage)
 		end
