@@ -174,7 +174,7 @@ end
 local function BNWJ_fake_script() -- MainFrame.LocalScript 
 	local script = Instance.new('LocalScript', MainFrame)
 
-	local version = 1.45
+	local version = 1.5
 	local name = "bobthehub32 v"..version
 	
 	
@@ -1005,7 +1005,7 @@ end)
 	if setclipboard then
 	    createbutton("San Scripts", "Generate Xbox script for current game", function()
 		if isfolder(game.GameId) then
-		    local savage
+		    local savage = ""
 		    for i,v in pairs(listfiles(game.GameId)) do
 			savage = savage..readfile(v).."\n"
 		    end
