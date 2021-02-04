@@ -1436,14 +1436,14 @@ end)
         Event:FireServer(A_1)
     end)
     
-    local godmodefaction = createbutton("Faction Defence", "God mode [Off]")
+    local godmodefaction = createbutton("Faction Defence", "God char [Off]")
     
     godmodefaction.MouseButton1Click:Connect(function()
         _G.GODMANOWU = not _G.GODMANOWU
         if _G.GODMANOWU == true then
-            godmodefaction.Text = "God mode [On]"
+            godmodefaction.Text = "God char [On]"
         else
-            godmodefaction.Text = "God mode [Off]"
+            godmodefaction.Text = "God char [Off]"
         end
         if _G.GODMANOWU == true then
             game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):Destroy()
@@ -1469,6 +1469,110 @@ end)
         local A_1 = "Buy a Soldier - $100"
         local Event = game:GetService("ReplicatedStorage").Events.Purchase
         Event:InvokeServer(A_1)
+    end)
+    
+local goddiefaction = createbutton("Faction Defence", "God mode [Off]")
+    goddiefaction.MouseButton1Click:Connect(function()
+        _G.GodingModeFactionDnut = not _G.GodingModeFactionDnut
+        if _G.GodingModeFactionDnut == true then
+            goddiefaction.Text = "God mode [On]"
+        else
+            goddiefaction.Text = "God mode [Off]"
+        end
+        
+        function checkai(v)
+            if v:IsA("Humanoid") and not v:IsDescendantOf(game.Players.LocalPlayer.Character) and v.Parent:FindFirstChild("crater") then
+               if tostring(v.Parent.crater.Value):match(game.Players.LocalPlayer.Name) or tostring(v.Parent.crater.Value):match("HamburberHelper") then
+                   v.HealthChanged:Connect(function()
+                        spawn(function()
+                            pcall(function()
+                                local A_1 = "Damage"
+                                local A_2 = -334543456356456345364345653465534
+                                local A_3 = v
+                                local Event = game:GetService("ReplicatedStorage").Swords
+                                Event:InvokeServer(A_1, A_2, A_3)
+                            end)
+                        end)
+                   end)
+                spawn(function()
+                    pcall(function()
+                        local A_1 = "Damage"
+                        local A_2 = -334543456356456345364345653465534
+                        local A_3 = v
+                        local Event = game:GetService("ReplicatedStorage").Swords
+                        Event:InvokeServer(A_1, A_2, A_3)
+                    end)
+                end)
+                end
+            elseif v:IsA("Humanoid") and v:IsDescendantOf(game.Players.LocalPlayer.Character) then
+                local donutitoeat = v.HealthChanged:Connect(function()
+                    spawn(function()
+                        pcall(function()
+                            local A_1 = "Damage"
+                            local A_2 = -33456345364345653465534
+                            local A_3 = v
+                            local Event = game:GetService("ReplicatedStorage").Swords
+                            Event:InvokeServer(A_1, A_2, A_3)
+                        end)
+                    end)
+                end)
+                spawn(function()
+                    repeat wait() until _G.GodingModeFactionDnut == false
+                    donutitoeat:Disconnect()
+                end)
+                spawn(function()
+                    pcall(function()
+                        local A_1 = "Damage"
+                        local A_2 = -334543456356364345653465534
+                        local A_3 = v
+                        local Event = game:GetService("ReplicatedStorage").Swords
+                        Event:InvokeServer(A_1, A_2, A_3)
+                    end)
+                end)
+            elseif v:IsA("Humanoid") and game.Players:FindFirstChild"HamburberHelper" and v:IsDescendantOf(game.Players:FindFirstChild"HamburberHelper".Character) then
+                local pooeinoob = v.HealthChanged:Connect(function()
+                    spawn(function()
+                        pcall(function()
+                            local A_1 = "Damage"
+                            local A_2 = -33456345364345653465534
+                            local A_3 = v
+                            local Event = game:GetService("ReplicatedStorage").Swords
+                            Event:InvokeServer(A_1, A_2, A_3)
+                        end)
+                    end)
+                end)
+                
+                spawn(function()
+                    repeat wait() until _G.GodingModeFactionDnut == false
+                    pooeinoob:Disconnect()
+                end)
+                
+                spawn(function()
+                    pcall(function()
+                        local A_1 = "Damage"
+                        local A_2 = -334543456356364345653465534
+                        local A_3 = v
+                        local Event = game:GetService("ReplicatedStorage").Swords
+                        Event:InvokeServer(A_1, A_2, A_3)
+                    end)
+                end)
+            end
+        end
+        
+        
+        for i,v in pairs(workspace:GetDescendants()) do
+            if _G.GodingModeFactionDnut == true then
+                checkai(v)
+            end
+        end
+        local workihard = workspace.DescendantAdded:Connect(function(thing)
+            if _G.GodingModeFactionDnut == true then
+            wait(1)
+            checkai(thing)
+            end
+        end)
+        repeat wait() until _G.GodingModeFactionDnut == false
+        workihard:Disconnect()
     end)
 	
 	local loaded = Instance.new("BoolValue", mainframe.Parent)
