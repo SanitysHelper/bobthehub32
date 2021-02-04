@@ -1392,6 +1392,85 @@ end)
 
 	end)
 	
+--371112664------------------------------Faction Defence----------------------------------------------
+    
+    createframe("Faction Defence")
+    
+    local factionpressednoob = false
+    local factionfarm = createbutton("Faction Defence", "Auto farm")
+    factionfarm.MouseButton1Click:Connect(function()
+        if factionpressednoob == false then
+            factionpressednoob = true
+            factionfarm.Text = "Used"
+            function givemoney(amount)
+                local A_1 = math.random(1,5)
+                local Event = game:GetService("ReplicatedStorage").PlayerMoneyUpdate[game.Players.LocalPlayer.Name]
+                Event:FireServer(A_1)
+            end
+            
+            function getitem(item)
+                local A_1 = item
+                local Event = game:GetService("ReplicatedStorage").Events.Purchase
+                Event:InvokeServer(A_1)
+            end
+            game:GetService("CoreGui").PurchasePromptApp.PurchasePromptUI.Visible = false
+            
+            _G.FDT = not _G.FDT
+            while _G.FDT == true do
+                wait(5)
+                for i,v in pairs(workspace.Camera:GetChildren()) do
+                    if v:IsA("Model") and v:FindFirstChild("Cost") then
+                        spawn(function()
+                            givemoney(tonumber(v.Cost.Value))
+                            getitem(v.Name)
+                        end)
+                    end
+                end
+            end
+        end
+    end)
+    
+    createbutton("Faction Defence", "Give money [amount]", function()
+        local A_1 = gettext()
+        local Event = game:GetService("ReplicatedStorage").PlayerMoneyUpdate[game.Players.LocalPlayer.Name]
+        Event:FireServer(A_1)
+    end)
+    
+    local godmodefaction = createbutton("Faction Defence", "God mode [Off]")
+    
+    godmodefaction.MouseButton1Click:Connect(function()
+        _G.GODMANOWU = not _G.GODMANOWU
+        if _G.GODMANOWU == true then
+            godmodefaction.Text = "God mode [On]"
+        else
+            godmodefaction.Text = "God mode [Off]"
+        end
+        if _G.GODMANOWU == true then
+            game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):Destroy()
+        end
+        local godmanxd = game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
+            local human = char:WaitForChild("Humanoid")
+            local sadlifexd = human.HealthChanged:Connect(function()
+                local A_1 = "Damage"
+                local A_2 = -334543456356456345364345653465534
+                local A_3 = human
+                local Event = game:GetService("ReplicatedStorage").Swords
+                Event:InvokeServer(A_1, A_2, A_3)
+            end)
+            repeat wait() until _G.GODMANOWU == false
+            sadlifexd:Disconnect()
+        end)
+        
+        repeat wait() until _G.GODMANOWU == false
+        godmanxd:Disconnect()
+    end)
+    
+    createbutton("Faction Defence", "More troops", function()
+        local A_1 = "Buy a Soldier - $100"
+        local Event = game:GetService("ReplicatedStorage").Events.Purchase
+        Event:InvokeServer(A_1)
+    end)
+	
 	local loaded = Instance.new("BoolValue", mainframe.Parent)
 	loaded.Name = "Loaded"
 	loaded.Value = true
