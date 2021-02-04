@@ -1574,7 +1574,27 @@ local goddiefaction = createbutton("Faction Defence", "God mode [Off]")
         repeat wait() until _G.GodingModeFactionDnut == false
         workihard:Disconnect()
     end)
-	
+-------------------------------------------Soup Simulator-------------------------
+    createframe("Soup Simulator")
+    
+    local soupfarmlol = createbutton("Soup Simulator", "Auto farm [Off]")
+    local soupfarmingxd = false
+    soupfarmlol.MouseButton1Click:Connect(function()
+        soupfarmingxd = not soupfarmingxd
+        if soupfarmingxd == true then
+            soupfarmlol.Text = "Auto farm [On]"
+        else
+            soupfarmlol.Text = "Auto farm [Off]"
+        end
+        
+        while wait() and soupfarmingxd == true do
+            local Event = game:GetService("ReplicatedStorage").Remotes.Lift
+            Event:FireServer()
+        end
+    end)
+    
+ ------------------------End--------------------------------------------
+ 
 	local loaded = Instance.new("BoolValue", mainframe.Parent)
 	loaded.Name = "Loaded"
 	loaded.Value = true
