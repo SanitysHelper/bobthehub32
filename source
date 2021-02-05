@@ -174,7 +174,7 @@ end
 local function BNWJ_fake_script() -- MainFrame.LocalScript 
 	local script = Instance.new('LocalScript', MainFrame)
 
-	local version = 1.5
+	local version = 1.55
 	local name = "bobthehub32 v"..version
 	
 	
@@ -1582,6 +1582,24 @@ local goddiefaction = createbutton("Faction Defence", "God mode [Off]")
         repeat wait() until _G.GodingModeFactionDnut == false
         workihard:Disconnect()
     end)
+    
+createbutton("Faction Defence", "Kill all", function()
+    function damage(v)
+        spawn(function()
+        local A_1 = "Damage"
+        local A_2 = math.huge
+        local A_3 = v
+        local Event = game:GetService("ReplicatedStorage").Swords
+        Event:InvokeServer(A_1, A_2, A_3)
+        end)
+    end
+    
+    for i,v in pairs(workspace:GetDescendants()) do
+        if v:IsA("Humanoid") then
+            damage(v)
+        end
+    end
+end)
 -------------------------------------------Soup Simulator-------------------------
     createframe("Soup Simulator")
     
