@@ -174,7 +174,7 @@ end
 local function BNWJ_fake_script() -- MainFrame.LocalScript 
 	local script = Instance.new('LocalScript', MainFrame)
 
-	local version = 1.55
+	local version = 1.6
 	local name = "bobthehub32 v"..version
 	
 	
@@ -1013,6 +1013,10 @@ end)
 		end
 	    end)
 	end
+	
+	createbutton("San Scripts", "Text to emoji", function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/emoji/main/Script"))()
+	end)
 	
 	----------------------------------------------------------------------------------------------------------------------- NINJA SIMULATOR
 	
