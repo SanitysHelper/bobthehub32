@@ -1018,6 +1018,10 @@ end)
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/emoji/main/Script"))()
 	end)
 	
+	createbutton("San Scripts", "Script Editor", function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/Executor/main/Remastered"))()
+	end)
+	
 	----------------------------------------------------------------------------------------------------------------------- NINJA SIMULATOR
 	
 	createframe("Ninja Simulator")
