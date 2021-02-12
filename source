@@ -283,7 +283,7 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 		end
 	
 		guiobject.Active = true
-		local speed = 0
+		local speed = 0.05
 		local uis = game:GetService("UserInputService")
 		local helddown = false
 		local mouse = lp:GetMouse()
