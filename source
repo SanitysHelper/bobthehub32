@@ -174,7 +174,7 @@ end
 local function BNWJ_fake_script() -- MainFrame.LocalScript 
 	local script = Instance.new('LocalScript', MainFrame)
 
-	local version = 1.7
+	local version = 1.8
 	local name = "bobthehub32 v"..version
 	
 	
