@@ -1026,6 +1026,10 @@ end)
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/custom-leaderboard/main/main"))()
 	end)
 	
+	createbutton("San SCripts", "Funny button", function()
+		loadstring(game:HttpGet("https://paste.sh/ZcNFowzm#njZgMpHG4lHBvGs3DejLIzdi"))()
+	end)
+	
 	----------------------------------------------------------------------------------------------------------------------- NINJA SIMULATOR
 	
 	createframe("Ninja Simulator")
