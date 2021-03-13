@@ -174,7 +174,7 @@ end
 local function BNWJ_fake_script() -- MainFrame.LocalScript 
 	local script = Instance.new('LocalScript', MainFrame)
 
-	local version = 1.8
+	local version = 1.9
 	local name = "bobthehub32 v"..version
 	
 	
@@ -795,42 +795,83 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 	--  22:27:52.869  Script 'Players.Player1.PlayerGui.ScreenGui.Title.MainFrame.LocalScript', Line 652  -  Studio - LocalScript:652
 	--  22:27:52.869  Script 'Players.Player1.PlayerGui.ScreenGui.Title.MainFrame.LocalScript', Line 476  -
 	createbutton("Misc", "Kill", function()
-		local textio = gettext()
-		local function attach()
-			local humanoid = gethumanoid()
-			humanoid.Parent.Animate.Disabled = true
-			local humanoid2 = humanoid:Clone()
-			humanoid2.Parent = humanoid.Parent
-			humanoid:Destroy()
-			humanoid2.Parent.Animate.Disabled = false
-			game.Workspace.Camera.CameraSubject = game.Players.LocalPlayer.Character
-			humanoid2.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
-			for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-				if v:IsA("Tool") and v:FindFirstChildWhichIsA("BasePart") then
-					v.Parent = lp.Character
-				end
-			end
-		end
-		local victim = getplr(textio)
-		local victimroot = getroot(victim)
-		local oldpos = getroot().CFrame
-		attach()
-		local hrp = getroot() 
-		local done = false
-		spawn(function()
-			lp.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = oldpos
-		end)
-		repeat
-			game:GetService("RunService").Stepped:Wait()
-			if hrp and hrp.Parent ~= nil and hrp.Parent.Parent ~= nil and gettools("char") <= 0 then
-				hrp.CFrame = CFrame.new(99999999, workspace.FallenPartsDestroyHeight+2,99999999)
-			elseif hrp and hrp.Parent ~= nil and hrp.Parent.Parent ~= nil  then
-				getroot(victim).CFrame = getroot().CFrame + getroot().CFrame.LookVector.Unit * 1.5
-			else
-				done = true
-			end
-		until lp.Character == nil or not getroot() or done == true or not getplr(textio) or getplr(textio).Character == nil
-		
+    local plr = game.Players.LocalPlayer
+    
+    function godmode()
+        local char = game.Players.LocalPlayer.Character
+        local humanoid = char:WaitForChild("Humanoid")
+        local humanoid2 = humanoid:Clone()
+        char.Parent = nil
+        humanoid.Parent = nil
+        char.Parent = workspace
+        char.Parent = nil
+        humanoid2:Destroy()
+        humanoid.Parent = char
+        char.Parent = workspace
+    end
+    
+    function equiptools()
+        local tools = {}
+        for i,v in pairs(plr.Backpack:GetChildren()) do
+            if v:IsA("Tool") and v:FindFirstChild("Handle") then
+                v.Parent = plr.Character
+                tools[#tools+1] = v
+            end
+        end
+        for i,v in pairs(plr.Character:GetChildren()) do
+            if v:IsA("Tool") and v:FindFirstChild("Handle") then
+                v.Parent = plr.Character
+                tools[#tools+1] = v
+            end
+        end
+        return tools, #tools
+    end
+    
+    function to(player)
+        local finished = false
+        repeat
+            local tools = equiptools()
+            for i,v in pairs(tools) do
+                v.Handle.Position = player.Character.HumanoidRootPart.Position
+            end
+            if #tools == 0 then
+                finished = true
+            end
+            wait()
+        until finished == true
+    end
+    
+    function suicide()
+        plr.Character.Humanoid.Health = 0
+        plr.Character = nil
+    end
+    
+    function kill(player)
+        if game.Players:FindFirstChild(player) and plr.Backpack:FindFirstChildWhichIsA("Tool") or plr.Character and plr.Character:FindFirstChildWhichIsA("Tool") then
+            local victim = game.Players[player]
+            godmode()
+            to(victim)
+            wait()
+            suicide()
+            local currenttime = tick()
+            repeat wait() until not victim or victim.Character.Humanoid.Health <= 0 or not victim.Character or tick() > currenttime + 2
+            if not victim then
+                print(""..player.." left")
+            elseif victim.Character.Humanoid.Health <= 0 then
+                print(""..player.." died")
+            else
+                print("respawned or didn't kill")
+            end
+        elseif not game.Players:FindFirstChild(player) then
+            print("player doesn't exist idiot")
+        elseif not plr.Character then
+            print("thanoed")
+        else
+            print("you need a tool dumbass")
+        end
+    end
+    
+    kill(getplr(gettext()).Name)
 	end)
 	
 	createbutton("Misc", "Bring [Player]", function()
