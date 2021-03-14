@@ -174,7 +174,7 @@ end
 local function BNWJ_fake_script() -- MainFrame.LocalScript 
 	local script = Instance.new('LocalScript', MainFrame)
 
-	local version = 1.9
+	local version = 1.95
 	local name = "bobthehub32 v"..version
 	
 	
@@ -914,20 +914,6 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 	
 	end)
 	
-	charadded(function()
-		spinbutton.Text = "Spin [Number], [Off]"
-		flybutton.Text = "Fly [Off]"
-		sitbutton.Text = "Sit [Off]"
-		gethumanoid().Changed:Connect(function()
-			sitting = gethumanoid().Sit
-			if sitting == true then
-				sitbutton.Text = "Sit [On]"
-			else
-				sitbutton.Text = "Sit [Off]"
-			end
-		end)
-	end)
-	
 	createbutton("Misc", "Rejoin", function()
 	    game:GetService("TeleportService"):Teleport(game.PlaceId)
 	end)
@@ -1027,6 +1013,64 @@ game.Players.PlayerAdded:Connect(function(v)
 	end)
 end)
 	end)
+	
+	local charm = lp.Character
+
+function unswim()
+    workspace.Gravity = 198.5
+    gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Flying,true)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Landed,true)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Physics,true)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,true)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Running,true)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,true)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Seated,true)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Swimming,true)
+	gethumanoid():ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
+end
+
+function swim()
+    unswim()
+    workspace.Gravity = 0
+    gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Flying,false)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Landed,false)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Physics,false)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Running,false)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,false)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Seated,false)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
+	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
+	gethumanoid():ChangeState(Enum.HumanoidStateType.Swimming)
+end
+
+local swimbutton = createbutton("Misc", "Swim [Off]")
+local swimming = false
+swimbutton.MouseButton1Click:Connect(function()
+    swimming = not swimming
+    if swimming == true then
+        swim()
+        swimbutton.Text = "Swim [On]"
+    else
+        unswim()
+        swimbutton.Text = "Swim [Off]"
+    end
+end)
+	
+	
 	------------------------------------------------ PERSONAL SCRIPTS ------------------------------------------------
 	
 	createframe("San Scripts")
@@ -1683,6 +1727,22 @@ end)
 	loaded.Name = "Loaded"
 	loaded.Value = true
 	mainframe.Parent.Text = name
+	
+    charadded(function()
+		spinbutton.Text = "Spin [Number], [Off]"
+		flybutton.Text = "Fly [Off]"
+		unfly()
+		unswim()
+		sitbutton.Text = "Sit [Off]"
+		gethumanoid().Changed:Connect(function()
+			sitting = gethumanoid().Sit
+			if sitting == true then
+				sitbutton.Text = "Sit [On]"
+			else
+				sitbutton.Text = "Sit [Off]"
+			end
+		end)
+	end)
 end
 coroutine.wrap(BNWJ_fake_script)()
 local function TUYAX_fake_script() -- Minimize.LocalScript 
