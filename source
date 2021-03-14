@@ -770,8 +770,8 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 	end)
 	
 	createbutton("Misc", "Remove fog", function()
-		game.Lighting.FogStart = 0
-		game.Lighting.FogEnd = 0
+		game.Lighting.FogStart = 999999
+		game.Lighting.FogEnd = 999999
 	end)
 	
 	createbutton("Misc", "Edit fog [Start], [End]", function()
