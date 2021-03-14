@@ -794,7 +794,7 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 	end)
 	--  22:27:52.869  Script 'Players.Player1.PlayerGui.ScreenGui.Title.MainFrame.LocalScript', Line 652  -  Studio - LocalScript:652
 	--  22:27:52.869  Script 'Players.Player1.PlayerGui.ScreenGui.Title.MainFrame.LocalScript', Line 476  -
-	createbutton("Misc", "Kill", function()
+	createbutton("Misc", "Kill [Player]", function()
     local plr = game.Players.LocalPlayer
     
     function godmode()
