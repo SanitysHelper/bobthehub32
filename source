@@ -1,6 +1,11 @@
 repeat wait() until game:IsLoaded() and game.Players.LocalPlayer and game.Players.LocalPlayer:GetMouse() and game.Players.LocalPlayer.Character
 
-local ScreenGui = Instance.new("ScreenGui")
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local bobtheblank = Instance.new("ScreenGui")
 local Title = Instance.new("TextLabel")
 local MainFrame = Instance.new("Frame")
 local Holders = Instance.new("ScrollingFrame")
@@ -9,23 +14,26 @@ local Storagelol = Instance.new("Frame")
 local Minimize = Instance.new("TextButton")
 local Values = Instance.new("TextBox")
 local Storage = Instance.new("Folder")
-local Tab1 = Instance.new("TextButton")
 local Button1 = Instance.new("TextButton")
 local UICorner = Instance.new("UICorner")
 local Outline = Instance.new("TextButton")
 local UICorner_2 = Instance.new("UICorner")
 local Frame1 = Instance.new("ScrollingFrame")
+local Tab1 = Instance.new("TextButton")
+local UIGradient_2 = Instance.new("UIGradient")
 
 --Properties:
 
-ScreenGui.Parent = game.CoreGui
+bobtheblank.Name = "bobtheblank"
+bobtheblank.Parent = game.CoreGui
+bobtheblank.ResetOnSpawn = false
 
 Title.Name = "Title"
-Title.Parent = ScreenGui
+Title.Parent = bobtheblank
 Title.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Title.BorderColor3 = Color3.fromRGB(255, 255, 255)
 Title.Position = UDim2.new(-1.76719623e-05, 0, 0.715572774, 0)
-Title.Size = UDim2.new(0.205319148, 0, 0.0257400256, 0)
+Title.Size = UDim2.new(0.205319151, 0, 0.0260000005, 0)
 Title.Font = Enum.Font.Fantasy
 Title.Text = "bob the hub"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -90,27 +98,13 @@ Values.Size = UDim2.new(0.266666681, 0, 1, 0)
 Values.Font = Enum.Font.SourceSans
 Values.PlaceholderColor3 = Color3.fromRGB(99, 99, 99)
 Values.PlaceholderText = "Name/Value here"
-Values.Text = "Press - to focus"
+Values.Text = ""
 Values.TextColor3 = Color3.fromRGB(255, 255, 255)
 Values.TextSize = 14.000
 Values.TextWrapped = true
 
 Storage.Name = "Storage"
-Storage.Parent = ScreenGui
-
-Tab1.Name = "Tab1"
-Tab1.Parent = Storage
-Tab1.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-Tab1.BorderColor3 = Color3.fromRGB(255, 255, 255)
-Tab1.Size = UDim2.new(0, 75, 1, 0)
-Tab1.Visible = false
-Tab1.AutoButtonColor = false
-Tab1.Font = Enum.Font.SourceSans
-Tab1.Text = "Tab1"
-Tab1.TextColor3 = Color3.fromRGB(255, 255, 255)
-Tab1.TextScaled = true
-Tab1.TextSize = 14.000
-Tab1.TextWrapped = true
+Storage.Parent = bobtheblank
 
 Button1.Name = "Button1"
 Button1.Parent = Storage
@@ -163,28 +157,59 @@ Frame1.MidImage = "rbxassetid://5903324492"
 Frame1.ScrollBarThickness = 4
 Frame1.TopImage = "rbxassetid://5903324492"
 
-for i,v in pairs(ScreenGui:GetDescendants()) do
-    if v:IsA("ScrollingFrame") then
-        v.ScrollBarImageColor3 = Color3.fromRGB(204, 255, 255)
-    end
-end
+Tab1.Name = "Tab1"
+Tab1.Parent = Storage
+Tab1.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Tab1.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Tab1.Size = UDim2.new(0, 75, 1, 0)
+Tab1.Visible = false
+Tab1.AutoButtonColor = false
+Tab1.Font = Enum.Font.SourceSans
+Tab1.Text = "Tab1"
+Tab1.TextColor3 = Color3.fromRGB(255, 255, 255)
+Tab1.TextSize = 14.000
+Tab1.TextWrapped = true
+
+UIGradient_2.Rotation = 270
+UIGradient_2.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(1.00, 0.70)}
+UIGradient_2.Parent = Tab1
 
 -- Scripts:
 
-local function BNWJ_fake_script() -- MainFrame.LocalScript 
+local function EKLPFOS_fake_script() -- MainFrame.LocalScript 
 	local script = Instance.new('LocalScript', MainFrame)
 
-	local version = 1.95
+	local version = 2
 	local name = "bobthehub32 v"..version
-	
 	
 	local storage = script.Parent.Parent.Parent.Storage
 	local mainframe = script.Parent
 	local lp = game.Players.LocalPlayer
 	local chosen = Instance.new("ObjectValue", mainframe)
+	local tweenservice = game:GetService("TweenService")
+	local textservice = game:GetService("TextService")
 	chosen.Name = "Selected"
 	mainframe.Parent.Text = "Loading"
 	
+	local changedcolor = false
+	spawn(function()
+		while wait(10) do
+			if changedcolor == false then
+				local info = TweenInfo.new(10, Enum.EasingStyle.Linear)
+				local prop = {}
+				prop.BackgroundColor3 = Color3.fromRGB(111, 111, 111)
+				local tween = tweenservice:Create(mainframe, info, prop)
+				tween:Play()
+			else
+				local info = TweenInfo.new(10, Enum.EasingStyle.Linear)
+				local prop = {}
+				prop.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+				local tween = tweenservice:Create(mainframe, info, prop)
+				tween:Play()
+			end
+			changedcolor = not changedcolor
+		end
+	end)
 	
 	function tablefind(table, thing)
 		for i,v in pairs(table) do
@@ -194,30 +219,83 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 		end
 	end
 	
+	function gettextsize(object, wrapped, text)
+		if wrapped == true then
+			local textlabelman = Instance.new("TextLabel", mainframe.Parent.Parent)
+			textlabelman.Size = object.Size + UDim2.fromOffset(0,50000)
+			textlabelman.TextWrapped = true
+			textlabelman.Font = object.Font
+			textlabelman.TextXAlignment = Enum.TextXAlignment.Left
+			textlabelman.TextYAlignment = Enum.TextYAlignment.Top
+			textlabelman.TextSize = object.TextSize
+			textlabelman.Text = text
+			if textlabelman.Text == "" and object:IsA("TextBox") then
+				textlabelman.Text = object.PlaceholderText
+			end
+			local x = textlabelman.TextBounds.X
+			local y = textlabelman.TextBounds.Y
+			textlabelman:Destroy()
+			local table = {
+				["X"] = x;
+				["Y"] = y
+			}
+			return table
+		else
+			local textlabelman = Instance.new("TextLabel", mainframe.Parent.Parent)
+			textlabelman.Size = UDim2.fromScale(50000,50000)
+			textlabelman.Font = object.Font
+			textlabelman.TextSize = object.TextSize
+			textlabelman.TextXAlignment = Enum.TextXAlignment.Left
+			textlabelman.TextYAlignment = Enum.TextYAlignment.Top
+			textlabelman.Visible = false
+			textlabelman.Text = text
+			if textlabelman.Text == "" and object:IsA("TextBox") then
+				textlabelman.Text = object.PlaceholderText
+			end
+			local x = textlabelman.TextBounds.X
+			local y = textlabelman.TextBounds.Y
+			textlabelman:Destroy()
+			local table = {
+				["X"] = x;
+				["Y"] = y
+			}
+			return table
+		end
+	end
+	
+	function tweencolor(object, color, time)
+		local info = TweenInfo.new(time, Enum.EasingStyle.Linear)
+		local prop = {}
+		prop.BackgroundColor3 = color
+		local tween = tweenservice:Create(object, info, prop)
+		tween:Play()
+	end
+	
 	function mouseify(button)
 		if button:IsA("TextButton") then
 			local p = button:FindFirstChild("Outline")
 			if p then
 				button.MouseEnter:Connect(function()
-					p.BackgroundColor3 = Color3.new(0, 0.0156863, 1)
-					button.BackgroundColor3 = Color3.fromRGB(86, 86, 86)
-					button.TextColor3 = Color3.new(1, 1, 1)
+					tweencolor(p, Color3.new(0, 0.0156863, 1), 0.2)
+					tweencolor(button,Color3.fromRGB(86, 86, 86),0.2)
+					button.TextColor3 = Color3.new(0.333333, 1, 1)
 					button.MouseLeave:Wait()
-					p.BackgroundColor3 = Color3.new(1,1,1)
-					button.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+					tweencolor(p, Color3.new(1,1,1), 0.5)
+					tweencolor(button,Color3.fromRGB(0,0,0),0.2)
 					button.TextColor3 = Color3.new(1,1,1)
 				end)
 			else
 				button.MouseEnter:Connect(function()
-					button.BackgroundColor3 = Color3.fromRGB(86, 86, 86)
-					button.TextColor3 = Color3.new(1, 1, 1)
+					tweencolor(button,Color3.fromRGB(86, 86, 86),0.2)
+					button.TextColor3 = Color3.new(0.333333, 1, 1)
 					button.MouseLeave:Wait()
 					if chosen.Value.Name.."Tab" == button.Name then
-						button.BackgroundColor3 = Color3.fromRGB(50,50,50)
+						tweencolor(button,Color3.fromRGB(50,50,50),0.2)
+						button.TextColor3 = Color3.new(0.333333, 1, 1)
 					else
-						button.BackgroundColor3 = Color3.fromRGB(0,0,0)
+						tweencolor(button,Color3.fromRGB(0,0,0),0.2)
+						button.TextColor3 = Color3.new(1,1,1)
 					end
-					button.TextColor3 = Color3.new(1,1,1)
 				end)
 			end
 		end
@@ -225,6 +303,21 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 	
 	function charadded(runscript)
 		runscript()
+		lp.CharacterAdded:Connect(function()
+			runscript()
+		end)
+	end
+	
+	function toscale(pos)
+		local x = (pos.X.Offset / mainframe.Parent.Parent.AbsoluteSize.X) + pos.X.Scale
+		local y = (pos.Y.Offset / mainframe.Parent.Parent.AbsoluteSize.Y) + pos.Y.Scale
+		return UDim2.fromScale(x,y)
+	end
+	
+	function tooffset(pos)
+		local x = (pos.X.Scale * mainframe.Parent.Parent.AbsoluteSize.X) + pos.X.Offset
+		local y = (pos.Y.Scale * mainframe.Parent.Parent.AbsoluteSize.Y) + pos.Y.Offset
+		return UDim2.fromOffset(x,y)
 	end
 	
 	function split(text, splitter)
@@ -248,7 +341,7 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 	
 	local uis = game:GetService("UserInputService")
 	uis.InputBegan:Connect(function(key)
-		if key.KeyCode == Enum.KeyCode.Minus then
+		if key.KeyCode == Enum.KeyCode.Minus and not uis:GetFocusedTextBox() then
 			game:GetService("RunService").Stepped:Wait()
 			mainframe.Parent.Values:CaptureFocus()
 		end
@@ -266,12 +359,6 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 			until gui:IsA("ScreenGui")
 		end
 	
-		local function offsettoscale(pos)
-			local p1 = pos.X.Offset / gui.AbsoluteSize.X + pos.X.Scale
-			local p2 = pos.Y.Offset / gui.AbsoluteSize.Y + pos.Y.Scale
-			return UDim2.fromScale(p1,p2)
-		end
-	
 		local function checkpos1(pos)
 			local range1 = guiobject.AbsolutePosition.X
 			local range2 = guiobject.AbsolutePosition.X + guiobject.AbsoluteSize.X
@@ -283,7 +370,7 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 		end
 	
 		guiobject.Active = true
-		local speed = 0.05
+		local speed = 0.1
 		local uis = game:GetService("UserInputService")
 		local helddown = false
 		local mouse = lp:GetMouse()
@@ -319,7 +406,7 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 		local function movegui()
 			if helddown == true then
 				local mpos = UDim2.fromOffset(mouse.X,mouse.Y)
-				local pos = offsettoscale(modifypos(mpos + delta, (mpos+delta) + UDim2.fromOffset(guiobject.AbsoluteSize.X,guiobject.AbsoluteSize.Y + mainframe.AbsoluteSize.Y)))
+				local pos = toscale(modifypos(mpos + delta, (mpos+delta) + UDim2.fromOffset(guiobject.AbsoluteSize.X,guiobject.AbsoluteSize.Y + mainframe.AbsoluteSize.Y)))
 				if speed > 0 then
 					guiobject:TweenPosition(pos,Enum.EasingDirection.In,Enum.EasingStyle.Linear,speed,true)
 				else
@@ -366,6 +453,7 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 			return number
 		end
 	end
+	
 	
 	function getroot(plr)
 		if not plr then
@@ -574,6 +662,7 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 	
 	local frames = {}
 	local framenames = {}
+	local totaltabsize = 0
 	
 	function createframe(name)
 		local newframe = storage.Frame1:Clone()
@@ -584,11 +673,14 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 		local tab = storage.Tab1:Clone()
 		tab.Text = name
 		tab.Parent = mainframe.Holders
-		tab.Position = UDim2.fromOffset((#mainframe.Holders:GetChildren()-1)*tab.Size.X.Offset, 0)
 		tab.Visible = true
+		local sizes = gettextsize(tab, false, tab.Text)
+		tab.Size = UDim2.new(0,sizes.X + 10, 1,0)
+		tab.Position = UDim2.fromOffset(totaltabsize, 0)
+		totaltabsize = totaltabsize + sizes.X + 10
 		tab.Name = name.."Tab"
 		mouseify(tab)
-		mainframe.Holders.CanvasSize = UDim2.fromOffset(#mainframe.Holders:GetChildren()*tab.Size.X.Offset,0)
+		mainframe.Holders.CanvasSize = UDim2.fromOffset(totaltabsize,0)
 		local function vify()
 			for i,v in pairs(mainframe.Storagelol:GetChildren()) do
 				if v ~= newframe then
@@ -599,10 +691,11 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 				end
 			end
 			if chosen.Value == newframe then
-				tab.BackgroundColor3 = Color3.fromRGB(50,50,50)
+				tweencolor(tab,Color3.fromRGB(50,50,50),0.2)
 				for i,v in pairs(mainframe.Holders:GetChildren()) do
 					if v ~= tab then
-						v.BackgroundColor3 = Color3.fromRGB(0,0,0)
+						tweencolor(v, Color3.fromRGB(0,0,0), 0.2)
+						v.TextColor3 = Color3.new(1,1,1)
 					end
 				end
 			end
@@ -615,20 +708,13 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 		if frames[1] == newframe then
 			vify()
 		end
-		wait(0.1)
+		wait()
 	
 		return newframe
 	end
 	
 	function getnumber(string)
-		string = split(string,"")
-		local crap = ""
-		for i,v in pairs(string) do
-			if v == "1" or v == "2" or v == "3" or v == "4" or v == "5" or v == "6" or v == "7" or v == "8" or v == "9" or v == "0" then
-				crap = crap..v
-			end
-		end
-		return tonumber(crap)
+		return tonumber(string:gsub("%D", ""))
 	end
 	
 	function createbutton(frame, text, scriptie)
@@ -638,7 +724,7 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 		button.Parent = frame
 		button.Text = text
 		button.Name = #frame:GetChildren().." BUTTON cool"
-		local total = tonumber(getnumber(button.Name)) - 1
+		local total = #frame:GetChildren() - 1
 		local p1 = 0
 		local p2 = 0
 		p2 = math.floor(total / 2) * (button.Size.Y.Offset + button.Size.Y.Offset/2)
@@ -652,37 +738,27 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 			end)
 		end
 		mouseify(button)
-		wait(0.1)
 		return button
 	end
 	
-	mainframe.Parent.Values.Changed:Connect(function()
-		local textbox = mainframe.Parent.Values
-		local max = mainframe.Parent.AbsoluteSize.X
-		local x = (textbox.TextBounds.X + 10) / max
-		if x > 80 / max and x <= 1  then
-			mainframe.Parent.Values:TweenSizeAndPosition(UDim2.fromScale(x , 1), UDim2.fromScale(1-x, 0), Enum.EasingDirection.In,Enum.EasingStyle.Linear,0.1, true)
-		elseif x <= 1 then
-			mainframe.Parent.Values:TweenSizeAndPosition(UDim2.fromScale(80 / max , 1), UDim2.fromScale(1 - (80 / max)), Enum.EasingDirection.In,Enum.EasingStyle.Linear,0.1, true)
-		else
-			mainframe.Parent.Values:TweenSizeAndPosition(UDim2.fromScale(1, 1), UDim2.fromScale(0, 0), Enum.EasingDirection.In,Enum.EasingStyle.Linear,0.1, true)
+	local valuetextie = ""
+	mainframe.Parent.Values.Changed:Connect(function(thing)
+		if thing == "Text" then
+			local textbox = mainframe.Parent.Values
+			local max = mainframe.Parent.AbsoluteSize.X
+			local x = gettextsize(textbox, false, textbox.Text).X / max
+			if x > 80 / max and x <= 1  then
+				mainframe.Parent.Values:TweenSizeAndPosition(UDim2.fromScale(x , 1), UDim2.fromScale(1-x, 0), Enum.EasingDirection.In,Enum.EasingStyle.Linear,0.1, true)
+			elseif x <= 1 then
+				mainframe.Parent.Values:TweenSizeAndPosition(UDim2.fromScale(80 / max , 1), UDim2.fromScale(1 - (80 / max)), Enum.EasingDirection.In,Enum.EasingStyle.Linear,0.1, true)
+			else
+				mainframe.Parent.Values:TweenSizeAndPosition(UDim2.fromScale(1, 1), UDim2.fromScale(0, 0), Enum.EasingDirection.In,Enum.EasingStyle.Linear,0.1, true)
+			end
 		end
 	end)
 	
 	------------------------------------------------ M I S C ----------------------------------------------------------
 	createframe("Misc")
-	
-	createbutton("Misc", "Walk speed [Number]", function()
-		gethumanoid().WalkSpeed = gettext()
-	end)
-	
-	createbutton("Misc", "Gravity [Number]", function()
-		workspace.Gravity = gettext()
-	end)
-	
-	createbutton("Misc", "Jump power [Number]", function()
-		gethumanoid().JumpPower = gettext()
-	end)
 	
 	local flybutton = createbutton("Misc", "Fly [off]")
 	flybutton.MouseButton1Click:Connect(function()
@@ -693,25 +769,36 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 			flybutton.Text = "Fly [Off]"
 			unfly()
 		end
-	end)
+	end) --1
 	
 	createbutton("Misc", "Fly speed [number]", function()
 		setspeedfly(gettext())
-	end)
+	end) --2
 	
 	createbutton("Misc", "Goto [Plr]", function()
 		getroot().CFrame = getroot(getplr(gettext())).CFrame + getroot(getplr(gettext())).CFrame.LookVector * 1.5
-	end)
+	end) --3
 	
-	local noclipbutton = createbutton("Misc", "Noclip [Off]")
-	noclipbutton.MouseButton1Click:Connect(function()
-		if noclipping == false then
-			noclipbutton.Text = "Noclip [On]"
+	local sitbutton = createbutton("Misc", "Sit [Off]")
+	local sitting = false
+	
+	sitbutton.MouseButton1Click:Connect(function()
+		gethumanoid().Sit = not sitting
+		sitting = gethumanoid().Sit
+		if sitting == true then
+			sitbutton.Text = "Sit [On]"
 		else
-			noclipbutton.Text = "Noclip [Off]"
+			sitbutton.Text = "Sit [Off]"
 		end
-		noclip()
-	end)
+	end) --4
+	
+	createbutton("Misc", "Walk speed [Number]", function()
+		gethumanoid().WalkSpeed = gettext()
+	end) --5
+	
+	createbutton("Misc", "Jump power [Number]", function()
+		gethumanoid().JumpPower = gettext()
+	end) --6
 	
 	local spinbutton = createbutton("Misc", "Spin [Number], [Off]")
 	local spinning = false
@@ -733,7 +820,21 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 				lp.Character.HumanoidRootPart:FindFirstChild("HarambeSpin"):Destroy()
 			until not lp.Character.HumanoidRootPart:FindFirstChild("HarambeSpin")
 		end	
-	end)
+	end) --7
+	
+	local noclipbutton = createbutton("Misc", "Noclip [Off]")
+	noclipbutton.MouseButton1Click:Connect(function()
+		if noclipping == false then
+			noclipbutton.Text = "Noclip [On]"
+		else
+			noclipbutton.Text = "Noclip [Off]"
+		end
+		noclip()
+	end) --8
+	
+	createbutton("Misc", "Gravity [Number]", function()
+		workspace.Gravity = gettext()
+	end) --9
 	
 	local afkpressed = false
 	local antiafk = createbutton("Misc", "Anti afk [Off]")
@@ -755,11 +856,12 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 			idler:Disconnect()
 			print("Stopped")
 		end
-	end)
+	end) --10
 	
-	createbutton("Misc", "Reset (kill yourself)", function()
-		gethumanoid().Health = 0
-	end)
+	createbutton("Misc", "Respawn", function()
+		lp.Character = nil
+	end) --11
+	
 	
 	createbutton("Misc", "Drop hats", function()
 		for i,v in pairs(lp.Character:GetDescendants()) do
@@ -767,112 +869,98 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 				v.Parent = workspace
 			end
 		end
-	end)
+	end) --12
 	
 	createbutton("Misc", "Remove fog", function()
 		game.Lighting.FogStart = 999999
 		game.Lighting.FogEnd = 999999
-	end)
+	end) --13
 	
 	createbutton("Misc", "Edit fog [Start], [End]", function()
 		local args = split(gettext(), " ")
 		game.Lighting.FogStart = args[1]
 		game.Lighting.FogEnd = args[2]
-	end)
+	end) --14
 	
-	local sitbutton = createbutton("Misc", "Sit [Off]")
-	local sitting = false
-	
-	sitbutton.MouseButton1Click:Connect(function()
-		gethumanoid().Sit = not sitting
-		sitting = gethumanoid().Sit
-		if sitting == true then
-			sitbutton.Text = "Sit [On]"
-		else
-			sitbutton.Text = "Sit [Off]"
-		end
-	end)
-	--  22:27:52.869  Script 'Players.Player1.PlayerGui.ScreenGui.Title.MainFrame.LocalScript', Line 652  -  Studio - LocalScript:652
-	--  22:27:52.869  Script 'Players.Player1.PlayerGui.ScreenGui.Title.MainFrame.LocalScript', Line 476  -
 	createbutton("Misc", "Kill [Player]", function()
-    local plr = game.Players.LocalPlayer
-    
-    function godmode()
-        local char = game.Players.LocalPlayer.Character
-        local humanoid = char:WaitForChild("Humanoid")
-        local humanoid2 = humanoid:Clone()
-        char.Parent = nil
-        humanoid.Parent = nil
-        char.Parent = workspace
-        char.Parent = nil
-        humanoid2:Destroy()
-        humanoid.Parent = char
-        char.Parent = workspace
-    end
-    
-    function equiptools()
-        local tools = {}
-        for i,v in pairs(plr.Backpack:GetChildren()) do
-            if v:IsA("Tool") and v:FindFirstChild("Handle") then
-                v.Parent = plr.Character
-                tools[#tools+1] = v
-            end
-        end
-        for i,v in pairs(plr.Character:GetChildren()) do
-            if v:IsA("Tool") and v:FindFirstChild("Handle") then
-                v.Parent = plr.Character
-                tools[#tools+1] = v
-            end
-        end
-        return tools, #tools
-    end
-    
-    function to(player)
-        local finished = false
-        repeat
-            local tools = equiptools()
-            for i,v in pairs(tools) do
-                v.Handle.Position = player.Character.HumanoidRootPart.Position
-            end
-            if #tools == 0 then
-                finished = true
-            end
-            wait()
-        until finished == true
-    end
-    
-    function suicide()
-        plr.Character.Humanoid.Health = 0
-        plr.Character = nil
-    end
-    
-    function kill(player)
-        if game.Players:FindFirstChild(player) and plr.Backpack:FindFirstChildWhichIsA("Tool") or plr.Character and plr.Character:FindFirstChildWhichIsA("Tool") then
-            local victim = game.Players[player]
-            godmode()
-            to(victim)
-            wait()
-            suicide()
-            local currenttime = tick()
-            repeat wait() until not victim or victim.Character.Humanoid.Health <= 0 or not victim.Character or tick() > currenttime + 2
-            if not victim then
-                print(""..player.." left")
-            elseif victim.Character.Humanoid.Health <= 0 then
-                print(""..player.." died")
-            else
-                print("respawned or didn't kill")
-            end
-        elseif not game.Players:FindFirstChild(player) then
-            print("player doesn't exist idiot")
-        elseif not plr.Character then
-            print("thanoed")
-        else
-            print("you need a tool dumbass")
-        end
-    end
-    
-    kill(getplr(gettext()).Name)
-	end)
+		local plr = game.Players.LocalPlayer
+	
+		function godmode()
+			local char = game.Players.LocalPlayer.Character
+			local humanoid = char:WaitForChild("Humanoid")
+			local humanoid2 = humanoid:Clone()
+			char.Parent = nil
+			humanoid.Parent = nil
+			char.Parent = workspace
+			char.Parent = nil
+			humanoid2:Destroy()
+			humanoid.Parent = char
+			char.Parent = workspace
+		end
+	
+		function equiptools()
+			local tools = {}
+			for i,v in pairs(plr.Backpack:GetChildren()) do
+				if v:IsA("Tool") and v:FindFirstChild("Handle") then
+					v.Parent = plr.Character
+					tools[#tools+1] = v
+				end
+			end
+			for i,v in pairs(plr.Character:GetChildren()) do
+				if v:IsA("Tool") and v:FindFirstChild("Handle") then
+					v.Parent = plr.Character
+					tools[#tools+1] = v
+				end
+			end
+			return tools, #tools
+		end
+	
+		function to(player)
+			local finished = false
+			repeat
+				local tools = equiptools()
+				for i,v in pairs(tools) do
+					v.Handle.Position = player.Character.HumanoidRootPart.Position
+				end
+				if #tools == 0 then
+					finished = true
+				end
+				wait()
+			until finished == true
+		end
+	
+		function suicide()
+			plr.Character.Humanoid.Health = 0
+			plr.Character = nil
+		end
+	
+		function kill(player)
+			if game.Players:FindFirstChild(player) and plr.Backpack:FindFirstChildWhichIsA("Tool") or plr.Character and plr.Character:FindFirstChildWhichIsA("Tool") then
+				local victim = game.Players[player]
+				godmode()
+				to(victim)
+				wait()
+				suicide()
+				local currenttime = tick()
+				repeat wait() until not victim or victim.Character.Humanoid.Health <= 0 or not victim.Character or tick() > currenttime + 2
+				if not victim then
+					print(""..player.." left")
+				elseif victim.Character.Humanoid.Health <= 0 then
+					print(""..player.." died")
+				else
+					print("respawned or didn't kill")
+				end
+			elseif not game.Players:FindFirstChild(player) then
+				print("player doesn't exist idiot")
+			elseif not plr.Character then
+				print("thanoed")
+			else
+				print("you need a tool dumbass")
+			end
+		end
+	
+		kill(getplr(gettext()).Name)
+	end) --15
 	
 	createbutton("Misc", "Bring [Player]", function()
 		local textio = gettext()
@@ -912,163 +1000,176 @@ local function BNWJ_fake_script() -- MainFrame.LocalScript
 			end
 		until lp.Character == nil or not getroot() or done == true or not getplr(textio) or getplr(textio).Character == nil
 	
-	end)
+	end) --16
 	
 	createbutton("Misc", "Rejoin", function()
-	    game:GetService("TeleportService"):Teleport(game.PlaceId)
-	end)
+		game:GetService("TeleportService"):Teleport(game.PlaceId)
+	end) --17
 	
 	createbutton("Misc", "Health Bars for All", function()
-	function healthbar(plr)
-	local HealthBar = Instance.new("BillboardGui")
-	local TextLabel = Instance.new("TextLabel")
-	local ImageLabel = Instance.new("ImageLabel")
-	local HealthBar_2 = Instance.new("Frame")
-	local Bar = Instance.new("Frame")
-	local UIGradient = Instance.new("UIGradient")
-
-	HealthBar.Name = "Health Bar"
-	HealthBar.Parent = plr.Character:WaitForChild"Head"
-	HealthBar.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	HealthBar.Active = true
-	HealthBar.ExtentsOffsetWorldSpace = Vector3.new(0, 3, 0)
-	HealthBar.LightInfluence = 0.500
-	HealthBar.Size = UDim2.new(0, 150, 0, 100)
-	HealthBar.SizeOffset = Vector2.new(0, 0.25)
-
-	TextLabel.Parent = HealthBar
-	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TextLabel.BackgroundTransparency = 1.000
-	TextLabel.Position = UDim2.new(0, 0, 0.5, 0)
-	TextLabel.Size = UDim2.new(1, 0, 0.129999995, 0)
-	TextLabel.Font = Enum.Font.Highway
-	TextLabel.Text = plr.Name
-	TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-	TextLabel.TextScaled = true
-	TextLabel.TextSize = 14.000
-	TextLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-	TextLabel.TextStrokeTransparency = 0.500
-	TextLabel.TextWrapped = true
-
-	ImageLabel.Parent = HealthBar
-	ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	ImageLabel.BackgroundTransparency = 1.000
-	ImageLabel.Position = UDim2.new(0.333333343, 0, 0, 0)
-	ImageLabel.Size = UDim2.new(0.333333343, 0, 0.5, 0)
-	ImageLabel.Image = "http://www.roblox.com/asset/?id=4868892267"
-	ImageLabel.ImageColor3 = Color3.fromRGB(255, 0, 0)
-	ImageLabel.Visible = false
-
-	HealthBar_2.Name = "HealthBar"
-	HealthBar_2.Parent = HealthBar
-	HealthBar_2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-	HealthBar_2.BorderColor3 = Color3.fromRGB(91, 91, 91)
-	HealthBar_2.BorderSizePixel = 3
-	HealthBar_2.Position = UDim2.new(0.0299999996, 0, 0.75, 0)
-	HealthBar_2.Size = UDim2.new(0.959999979, 0, 0.0700000003, 0)
+		function healthbar(plr)
+			local HealthBar = Instance.new("BillboardGui")
+			local TextLabel = Instance.new("TextLabel")
+			local ImageLabel = Instance.new("ImageLabel")
+			local HealthBar_2 = Instance.new("Frame")
+			local Bar = Instance.new("Frame")
+			local UIGradient = Instance.new("UIGradient")
 	
-	local humanoid = plr.Character:WaitForChild("Humanoid")
-	humanoid.NameDisplayDistance = 9
-	humanoid.HealthDisplayDistance = 0
-	humanoid.HealthChanged:Connect(function(health)
-		local maxhealth = humanoid.MaxHealth
-		local percent = health/maxhealth
-		Bar.Size = UDim2.fromScale(percent, 1)
-	end)
-
-	Bar.Name = "Bar"
-	Bar.Parent = HealthBar_2
-	Bar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Bar.Size = UDim2.new(1, 0, 1, 0)
-
-	UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(129, 129, 129)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 255, 255))}
-	UIGradient.Rotation = 270
-	UIGradient.Parent = Bar
-end
-
-function charadded(plr, scriptio)
-	spawn(function()
-		scriptio()
-	end)
-	plr.CharacterAdded:Connect(function()
-		spawn(function()
-			scriptio()
+			HealthBar.Name = "Health Bar"
+			HealthBar.Parent = plr.Character:WaitForChild"Head"
+			HealthBar.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+			HealthBar.Active = true
+			HealthBar.ExtentsOffsetWorldSpace = Vector3.new(0, 3, 0)
+			HealthBar.LightInfluence = 0.500
+			HealthBar.Size = UDim2.new(0, 150, 0, 100)
+			HealthBar.SizeOffset = Vector2.new(0, 0.25)
+	
+			TextLabel.Parent = HealthBar
+			TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			TextLabel.BackgroundTransparency = 1.000
+			TextLabel.Position = UDim2.new(0, 0, 0.5, 0)
+			TextLabel.Size = UDim2.new(1, 0, 0.129999995, 0)
+			TextLabel.Font = Enum.Font.Highway
+			TextLabel.Text = plr.Name
+			TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+			TextLabel.TextScaled = true
+			TextLabel.TextSize = 14.000
+			TextLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+			TextLabel.TextStrokeTransparency = 0.500
+			TextLabel.TextWrapped = true
+	
+			ImageLabel.Parent = HealthBar
+			ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			ImageLabel.BackgroundTransparency = 1.000
+			ImageLabel.Position = UDim2.new(0.333333343, 0, 0, 0)
+			ImageLabel.Size = UDim2.new(0.333333343, 0, 0.5, 0)
+			ImageLabel.Image = "http://www.roblox.com/asset/?id=4868892267"
+			ImageLabel.ImageColor3 = Color3.fromRGB(255, 0, 0)
+			ImageLabel.Visible = false
+	
+			HealthBar_2.Name = "HealthBar"
+			HealthBar_2.Parent = HealthBar
+			HealthBar_2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+			HealthBar_2.BorderColor3 = Color3.fromRGB(91, 91, 91)
+			HealthBar_2.BorderSizePixel = 3
+			HealthBar_2.Position = UDim2.new(0.0299999996, 0, 0.75, 0)
+			HealthBar_2.Size = UDim2.new(0.959999979, 0, 0.0700000003, 0)
+	
+			local humanoid = plr.Character:WaitForChild("Humanoid")
+			humanoid.NameDisplayDistance = 9
+			humanoid.HealthDisplayDistance = 0
+			humanoid.HealthChanged:Connect(function(health)
+				local maxhealth = humanoid.MaxHealth
+				local percent = health/maxhealth
+				Bar.Size = UDim2.fromScale(percent, 1)
+			end)
+	
+			Bar.Name = "Bar"
+			Bar.Parent = HealthBar_2
+			Bar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Bar.Size = UDim2.new(1, 0, 1, 0)
+	
+			UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(129, 129, 129)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 255, 255))}
+			UIGradient.Rotation = 270
+			UIGradient.Parent = Bar
+		end
+	
+		function charadded(plr, scriptio)
+			spawn(function()
+				scriptio()
+			end)
+			plr.CharacterAdded:Connect(function()
+				spawn(function()
+					scriptio()
+				end)
+			end)
+		end
+	
+		repeat wait() until game:IsLoaded()
+	
+		for i,v in pairs(game.Players:GetPlayers()) do
+			if v.Name ~= game.Players.LocalPlayer.Name then
+				charadded(v, function()
+					healthbar(v)
+				end)
+			end
+		end
+	
+		game.Players.PlayerAdded:Connect(function(v)
+			charadded(v, function()
+				healthbar(v)
+			end)
 		end)
-	end)
-end
-
-repeat wait() until game:IsLoaded()
-
-for i,v in pairs(game.Players:GetPlayers()) do
-	if v.Name ~= game.Players.LocalPlayer.Name then
-		charadded(v, function()
-			healthbar(v)
-		end)
-	end
-end
-
-game.Players.PlayerAdded:Connect(function(v)
-	charadded(v, function()
-		healthbar(v)
-	end)
-end)
-	end)
+	end) --18
 	
 	local charm = lp.Character
-
-function unswim()
-    workspace.Gravity = 198.5
-    gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Flying,true)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Landed,true)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Physics,true)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,true)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Running,true)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,true)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Seated,true)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Swimming,true)
-	gethumanoid():ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
-end
-
-function swim()
-    unswim()
-    workspace.Gravity = 0
-    gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Flying,false)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Landed,false)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Physics,false)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Running,false)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,false)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Seated,false)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
-	gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
-	gethumanoid():ChangeState(Enum.HumanoidStateType.Swimming)
-end
-
-local swimbutton = createbutton("Misc", "Swim [Off]")
-local swimming = false
-swimbutton.MouseButton1Click:Connect(function()
-    swimming = not swimming
-    if swimming == true then
-        swim()
-        swimbutton.Text = "Swim [On]"
-    else
-        unswim()
-        swimbutton.Text = "Swim [Off]"
-    end
-end)
+	
+	function unswim()
+		workspace.Gravity = 198.5
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Flying,true)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Landed,true)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Physics,true)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,true)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Running,true)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,true)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Seated,true)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Swimming,true)
+		gethumanoid():ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
+	end
+	
+	function swim()
+		unswim()
+		workspace.Gravity = 0
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Flying,false)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Landed,false)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Physics,false)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Running,false)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,false)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Seated,false)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
+		gethumanoid():SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
+		gethumanoid():ChangeState(Enum.HumanoidStateType.Swimming)
+	end
+	
+	local swimbutton = createbutton("Misc", "Swim [Off]")
+	local swimming = false
+	swimbutton.MouseButton1Click:Connect(function()
+		swimming = not swimming
+		if swimming == true then
+			swim()
+			swimbutton.Text = "Swim [On]"
+		else
+			unswim()
+			swimbutton.Text = "Swim [Off]"
+		end
+	end) --19
+	
+	local platformedgy = createbutton("Misc", "Platform stand")
+	platformedgy.MouseButton1Click:Connect(function()
+		local textpoo = function()
+			if not gethumanoid().PlatformStand == false then
+				return "Off"
+			else
+				return "On"
+			end
+		end
+		platformedgy.Text = "Platform stand [".. textpoo() .."]" 
+		gethumanoid().PlatformStand = not gethumanoid().PlatformStand
+	end)
 	
 	
 	------------------------------------------------ PERSONAL SCRIPTS ------------------------------------------------
@@ -1079,24 +1180,24 @@ end)
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/Bleak-Admin/main/source"))()
 	end)
 	
-	createbutton("San Scripts", "Harambe Bypass [Chat Bypasser]", function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/chat-bypasser/main/Main"))()
-	end)
+	--createbutton("San Scripts", "Harambe Bypass [Chat Bypasser]", function()
+	--	loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/chat-bypasser/main/Main"))()
+	--end)
 	
 	createbutton("San Scripts", "Controller Customization", function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/Xbox-Customization/main/Main"))()
 	end)
 	
 	if setclipboard then
-	    createbutton("San Scripts", "Generate Xbox script for current game", function()
-		if isfolder(game.GameId) then
-		    local savage = ""
-		    for i,v in pairs(listfiles(game.GameId)) do
-			savage = savage..readfile(v).."\n"
-		    end
-		    setclipboard(savage)
-		end
-	    end)
+		createbutton("San Scripts", "Generate Xbox script for current game", function()
+			if isfolder(game.GameId) then
+				local savage = ""
+				for i,v in pairs(listfiles(game.GameId)) do
+					savage = savage..readfile(v).."\n"
+				end
+				setclipboard(savage)
+			end
+		end)
 	end
 	
 	createbutton("San Scripts", "Text to emoji", function()
@@ -1116,194 +1217,198 @@ end)
 	end)
 	
 	createbutton("San Scripts", "Shady Button", function()
-local lines = {
-    "May I have your attention please?",
-    "May I have your attention please?",
-    "Will the real Slim Shady please stand up?",
-    "I repeat, will the real Slim Shady please stand up?",
-    "We're gonna have a problem here",
-    
-    "Y'all act like you never seen a white person before",
-    "Jaws all on the floor like Pam and Tommy just burst in the door",
-    "And started whooping her ass worse than before",
-    "They first were divorced, throwing her over furniture (Ah!)",
-    [[It's the return of the... "Ah, wait, no way, you're kidding]],
-    "He didn't just say what I think he did, did he?",
-    "And Dr. Dre said... nothing, you idiots!",
-    "Dr. Dre's dead, he's locked in my basement! (Ha-ha!)",
-    "Feminist women love Eminem",
-    "[*Vocal turntable: chigga chigga chigga*]",
-    "Slim Shady, I'm sick of him",
-    "Look at him, walking around grabbing his you-know-what",
-    [["Flipping the you-know-who." "Yeah, but he's so cute though!"]],
-    "Yeah, I probably got a couple of screws up in my head loose",
-    "But no worse, than what's going on in your parents' bedrooms",
-    "Sometimes, I wanna get on TV and just let loose, but can't",
-    "But it's cool for Tom Green to hump a dead moose",
-    "My bum is on your lips, my bum is on your lips",
-    "And if I'm lucky, you might just give it a little kiss",
-    "And that's the message that we deliver to little kids",
-    "And expect them not to know what a woman's clitoris is",
-    "Of course they gonna know what intercourse is",
-    "By the time they hit fourth grade",
-    "They got the Discovery Channel, don't they?",
-    [["We ain't nothing but mammals.." Well, some of us cannibals]],
-    "Who cut other people open like cantaloupes [*slurp*]",
-    "But if we can hump dead animals and antelopes",
-    "Then there's no reason that a man and another man can't elope",
-    "[*ewww!*] But if you feel like I feel, I got the antidote",
-    "Women wave your pantyhose, sing the chorus and it goes",
-    
-    "'Cause I'm Slim Shady, yes I'm the real Shady",
-    "All you other Slim Shadys are just imitating",
-    "So won't the real Slim Shady please stand up",
-    "Please stand up, please stand up?",
-    
-    "'Cause I'm Slim Shady, yes I'm the real Shady",
-    "All you other Slim Shadys are just imitating",
-    "So won't the real Slim Shady please stand up",
-    "Please stand up, please stand up?",
-    
-    "Will Smith don't gotta cuss in his raps to sell records",
-    "Well I do, so fuck him and fuck you too!",
-    "You think I give a damn about a Grammy?",
-    "Half of you critics can't even stomach me, let alone stand me",
-    [["But Slim, what if you win, wouldn't it be weird?"]],
-    "Why? So you guys could just lie to get me here?",
-    "So you can, sit me here next to Britney Spears?",
-    "Yo Shit, Christina Aguilera better switch me chairs",
-    "So I can sit next to Carson Daly and Fred Durst",
-    "And hear 'em argue over who she gave head to first",
-    "Little bitch, put me on blast on MTV",
-    [["Yeah, he's cute, but I think he's married to Kim, hee-hee!"]],
-    "I should download her audio on MP3",
-    "And show the whole world how you gave Eminem VD",
-    "I'm sick of you little girl and boy groups, all you do is annoy me",
-    "So I have been sent here to destroy you",
-    "And there's a million of us just like me",
-    "Who cuss like me; who just don't give a fuck like me",
-    "Who dress like me; walk, talk and act like me",
-    "It just might be the next best thing but not quite me!",
-    
-    "'Cause I'm Slim Shady, yes I'm the real Shady",
-    "All you other Slim Shadys are just imitating",
-    "So won't the real Slim Shady please stand up",
-    "Please stand up, please stand up?",
-    
-    "'Cause I'm Slim Shady, yes I'm the real Shady",
-    "All you other Slim Shadys are just imitating",
-    "So won't the real Slim Shady please stand up",
-    "Please stand up, please stand up?",
-    
-    "I'm like a head trip to listen to, cause I'm only giving you",
-    "Things you joke about with your friends inside your living room",
-    "The only difference is I got the balls to say it",
-    "In front of y'all and I don't gotta be false or sugarcoated at all",
-    "I just get on the mic and spit it",
-    "And whether you like to admit it [*err*] I just shit it",
-    "Better than ninety percent of you rappers out can",
-    "Then you wonder how can kids eat up these albums like Valiums",
-    "It's funny; 'cause at the rate I'm going when I'm thirty",
-    "I'll be the only person in the nursing home flirting",
-    "Pinching nurses asses when I'm jacking off with Jergens",
-    "And I'm jerking but this whole bag of Viagra isn't working",
-    "And every single person is a Slim Shady lurking",
-    "He could be working at Burger King, spitting on your onion rings",
-    "[*hach*] Or in the parking lot, circling",
-    "Screaming I don't give a fuck!",
-    "With his windows down and his system up",
-    "So, will the real Shady please stand up?",
-    "And put one of those fingers on each hand up?",
-    "And be proud to be outta your mind and outta control",
-    "And one more time, loud as you can, how does it go?",
-    
-    "'Cause I'm Slim Shady, yes I'm the real Shady",
-    "All you other Slim Shadys are just imitating",
-    "So won't the real Slim Shady please stand up",
-    "Please stand up, please stand up?",
-    
-    "'Cause I'm Slim Shady, yes I'm the real Shady",
-    "All you other Slim Shadys are just imitating",
-    "So won't the real Slim Shady please stand up",
-    "Please stand up, please stand up?",
-    
-    "'Cause I'm Slim Shady, yes I'm the real Shady",
-    "All you other Slim Shadys are just imitating",
-    "So won't the real Slim Shady please stand up",
-    "Please stand up, please stand up?",
-    
-    "'Cause I'm Slim Shady, yes I'm the real Shady",
-    "All you other Slim Shadys are just imitating",
-    "So won't the real Slim Shady please stand up",
-    "Please stand up, please stand up?",
-    
-    "Ha ha",
-    "Guess there's a Slim Shady in all of us",
-    "Fuck it, let's all stand up"
-    }
-    
-    local max = #lines
-    
-    local swears = {
-        ["fuck"] = {
-            ["replacement"] = "funk";
-            ["name"] = "fuck"
-        };
-        ["shit"] = {
-            ["replacement"] = "crap";
-            ["name"] = "shit"
-        };
-        ["hump"] = {
-            ["replacement"] = "reproduction time";
-            ["name"] = "hump"
-        };
-        ["ass"] = {
-            ["replacement"] = "bottom";
-            ["name"] = "ass"
-        };
-        ["flirting"] = {
-            ["replacement"] = "happy meal";
-            ["name"] = "flirting"
-        };
-        ["jacking"] = {
-            ["replacement"] = "mean man";
-            ["name"] = "jacking"
-        };
-        ["dick"] = {
-            ["replacement"] = "pickle";
-            ["name"] = "dick"
-        };
-    ["bum"] = {
-            ["replacement"] = "bottom";
-            ["name"] = "bum"
-        };
-    ["clitoris"] = {
-            ["replacement"] = "bottom treatment";
-            ["name"] = "clitoris"
-        };
-        ["jerking"] = {
-            ["replacement"] = "jamming";
-            ["name"] = "jerking"
-        };
-    ["jergens"] = {
-            ["replacement"] = "jamgens";
-            ["name"] = "jergens"
-        }
-    }
-    
-    for i,e in pairs(lines) do
-        for i,v in pairs(swears) do
-            e = e:lower():gsub(v.name, v.replacement)
-        end
-        lines[i] = e
-    end
-    
-    for i,v in pairs(lines) do
-        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(v,"All")
-        print("\n"..i.."/"..max.."\n"..v)
-        wait(2.5)
-    end
-end)
+		local lines = {
+			"May I have your attention please?",
+			"May I have your attention please?",
+			"Will the real Slim Shady please stand up?",
+			"I repeat, will the real Slim Shady please stand up?",
+			"We're gonna have a problem here",
+	
+			"Y'all act like you never seen a white person before",
+			"Jaws all on the floor like Pam and Tommy just burst in the door",
+			"And started whooping her ass worse than before",
+			"They first were divorced, throwing her over furniture (Ah!)",
+			[[It's the return of the... "Ah, wait, no way, you're kidding]],
+			"He didn't just say what I think he did, did he?",
+			"And Dr. Dre said... nothing, you idiots!",
+			"Dr. Dre's dead, he's locked in my basement! (Ha-ha!)",
+			"Feminist women love Eminem",
+			"[*Vocal turntable: chigga chigga chigga*]",
+			"Slim Shady, I'm sick of him",
+			"Look at him, walking around grabbing his you-know-what",
+			[["Flipping the you-know-who." "Yeah, but he's so cute though!"]],
+			"Yeah, I probably got a couple of screws up in my head loose",
+			"But no worse, than what's going on in your parents' bedrooms",
+			"Sometimes, I wanna get on TV and just let loose, but can't",
+			"But it's cool for Tom Green to hump a dead moose",
+			"My bum is on your lips, my bum is on your lips",
+			"And if I'm lucky, you might just give it a little kiss",
+			"And that's the message that we deliver to little kids",
+			"And expect them not to know what a woman's clitoris is",
+			"Of course they gonna know what intercourse is",
+			"By the time they hit fourth grade",
+			"They got the Discovery Channel, don't they?",
+			[["We ain't nothing but mammals.." Well, some of us cannibals]],
+			"Who cut other people open like cantaloupes [*slurp*]",
+			"But if we can hump dead animals and antelopes",
+			"Then there's no reason that a man and another man can't elope",
+			"[*ewww!*] But if you feel like I feel, I got the antidote",
+			"Women wave your pantyhose, sing the chorus and it goes",
+	
+			"'Cause I'm Slim Shady, yes I'm the real Shady",
+			"All you other Slim Shadys are just imitating",
+			"So won't the real Slim Shady please stand up",
+			"Please stand up, please stand up?",
+	
+			"'Cause I'm Slim Shady, yes I'm the real Shady",
+			"All you other Slim Shadys are just imitating",
+			"So won't the real Slim Shady please stand up",
+			"Please stand up, please stand up?",
+	
+			"Will Smith don't gotta cuss in his raps to sell records",
+			"Well I do, so fuck him and fuck you too!",
+			"You think I give a damn about a Grammy?",
+			"Half of you critics can't even stomach me, let alone stand me",
+			[["But Slim, what if you win, wouldn't it be weird?"]],
+			"Why? So you guys could just lie to get me here?",
+			"So you can, sit me here next to Britney Spears?",
+			"Yo Shit, Christina Aguilera better switch me chairs",
+			"So I can sit next to Carson Daly and Fred Durst",
+			"And hear 'em argue over who she gave head to first",
+			"Little bitch, put me on blast on MTV",
+			[["Yeah, he's cute, but I think he's married to Kim, hee-hee!"]],
+			"I should download her audio on MP3",
+			"And show the whole world how you gave Eminem VD",
+			"I'm sick of you little girl and boy groups, all you do is annoy me",
+			"So I have been sent here to destroy you",
+			"And there's a million of us just like me",
+			"Who cuss like me; who just don't give a fuck like me",
+			"Who dress like me; walk, talk and act like me",
+			"It just might be the next best thing but not quite me!",
+	
+			"'Cause I'm Slim Shady, yes I'm the real Shady",
+			"All you other Slim Shadys are just imitating",
+			"So won't the real Slim Shady please stand up",
+			"Please stand up, please stand up?",
+	
+			"'Cause I'm Slim Shady, yes I'm the real Shady",
+			"All you other Slim Shadys are just imitating",
+			"So won't the real Slim Shady please stand up",
+			"Please stand up, please stand up?",
+	
+			"I'm like a head trip to listen to, cause I'm only giving you",
+			"Things you joke about with your friends inside your living room",
+			"The only difference is I got the balls to say it",
+			"In front of y'all and I don't gotta be false or sugarcoated at all",
+			"I just get on the mic and spit it",
+			"And whether you like to admit it [*err*] I just shit it",
+			"Better than ninety percent of you rappers out can",
+			"Then you wonder how can kids eat up these albums like Valiums",
+			"It's funny; 'cause at the rate I'm going when I'm thirty",
+			"I'll be the only person in the nursing home flirting",
+			"Pinching nurses asses when I'm jacking off with Jergens",
+			"And I'm jerking but this whole bag of Viagra isn't working",
+			"And every single person is a Slim Shady lurking",
+			"He could be working at Burger King, spitting on your onion rings",
+			"[*hach*] Or in the parking lot, circling",
+			"Screaming I don't give a fuck!",
+			"With his windows down and his system up",
+			"So, will the real Shady please stand up?",
+			"And put one of those fingers on each hand up?",
+			"And be proud to be outta your mind and outta control",
+			"And one more time, loud as you can, how does it go?",
+	
+			"'Cause I'm Slim Shady, yes I'm the real Shady",
+			"All you other Slim Shadys are just imitating",
+			"So won't the real Slim Shady please stand up",
+			"Please stand up, please stand up?",
+	
+			"'Cause I'm Slim Shady, yes I'm the real Shady",
+			"All you other Slim Shadys are just imitating",
+			"So won't the real Slim Shady please stand up",
+			"Please stand up, please stand up?",
+	
+			"'Cause I'm Slim Shady, yes I'm the real Shady",
+			"All you other Slim Shadys are just imitating",
+			"So won't the real Slim Shady please stand up",
+			"Please stand up, please stand up?",
+	
+			"'Cause I'm Slim Shady, yes I'm the real Shady",
+			"All you other Slim Shadys are just imitating",
+			"So won't the real Slim Shady please stand up",
+			"Please stand up, please stand up?",
+	
+			"Ha ha",
+			"Guess there's a Slim Shady in all of us",
+			"Fuck it, let's all stand up"
+		}
+	
+		local max = #lines
+	
+		local swears = {
+			["fuck"] = {
+				["replacement"] = "funk";
+				["name"] = "fuck"
+			};
+			["shit"] = {
+				["replacement"] = "crap";
+				["name"] = "shit"
+			};
+			["hump"] = {
+				["replacement"] = "reproduction time";
+				["name"] = "hump"
+			};
+			["ass"] = {
+				["replacement"] = "bottom";
+				["name"] = "ass"
+			};
+			["flirting"] = {
+				["replacement"] = "happy meal";
+				["name"] = "flirting"
+			};
+			["jacking"] = {
+				["replacement"] = "mean man";
+				["name"] = "jacking"
+			};
+			["dick"] = {
+				["replacement"] = "pickle";
+				["name"] = "dick"
+			};
+			["bum"] = {
+				["replacement"] = "bottom";
+				["name"] = "bum"
+			};
+			["clitoris"] = {
+				["replacement"] = "bottom treatment";
+				["name"] = "clitoris"
+			};
+			["jerking"] = {
+				["replacement"] = "jamming";
+				["name"] = "jerking"
+			};
+			["jergens"] = {
+				["replacement"] = "jamgens";
+				["name"] = "jergens"
+			};
+			["intercourse"] = {
+				["replacement"] = "fun";
+				["name"] = "intercourse"
+			}
+		}
+	
+		for i,e in pairs(lines) do
+			for i,v in pairs(swears) do
+				e = e:lower():gsub(v.name, v.replacement)
+			end
+			lines[i] = e
+		end
+	
+		for i,v in pairs(lines) do
+			game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(v,"All")
+			print("\n"..i.."/"..max.."\n"..v)
+			wait(2.5)
+		end
+	end)
 	
 	----------------------------------------------------------------------------------------------------------------------- NINJA SIMULATOR
 	
@@ -1588,342 +1693,372 @@ end)
 	end)
 	
 	createbutton("Mortem Metallum", "Xbox Controls", function()
-             local function weaponcheck(part)
-                if part and part ~= nil and part ~= "" then
-                    local name = part.Name
-                    if name ~= "Snow ball" and name ~= "Explosive present" and name ~= "Grenade" and name ~= "C4" and name ~= "Fire bomb" and name ~= "Bear trap" and name ~= "Firework" and name ~= "Festive Cannon" and name ~= "Trumpet" and name ~= "Health potion" then
-                        return true
-                    end
-                end
-            end
-            
-            local function equipweapon(tool)
-                if not tool then
-                    local player = game.Players.LocalPlayer
-                    for i,v in pairs(player.Character:GetChildren()) do
-                        if v:IsA("Tool") and not weaponcheck(v) then
-                            v.Parent = player.Backpack
-                        end
-                    end
-                    for i,v in pairs(player.Backpack:GetChildren()) do
-                        if weaponcheck(v) and v:IsA("Tool") then
-                            v.Parent = player.Character
-                            break
-                        end
-                    end
-                    else
-                        local tool = lp.Backpack:FindFirstChild(tool)
-                        if tool then
-                            for i,v in pairs(lp.Character:GetChildren()) do
-                                if v:IsA("Tool") then
-                                    v.Parent = lp.Backpack
-                                end
-                            end
-                        wait()
-                        tool.Parent = lp.Character
-                    end
-                end
-            end
-            
-            local function parry()
-                equipweapon()
-                game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool").ability:FireServer()
-            end
-            
-            local function roll()
-                local hrp = lp.Character:WaitForChild("HumanoidRootPart")
-                local humanoid = lp.Character:WaitForChild("Humanoid")
-                local pos = hrp.Position
-                local velocity = hrp.Velocity
-                local direction = humanoid.MoveDirection
-                local A_1 = direction
-                local A_2 = pos
-                local A_3 = velocity
-                local Event = game:GetService("ReplicatedStorage").dash
-                if direction ~= Vector3.new(0,0,0) then
-                    Event:FireServer(A_1, A_2, A_3)
-                end
-            end
-            
-            game:GetService("UserInputService").InputBegan:Connect(function(key)
-                if key.KeyCode == Enum.KeyCode.ButtonX then
-                    roll()
-                end
-                
-                if key.KeyCode == Enum.KeyCode.ButtonL2 then
-                    parry()
-                end
-                
-                if key.KeyCode == Enum.KeyCode.ButtonL3 then
-                    lp.Character.Runscript.run:FireServer(true)
-                    repeat wait() until key.UserInputState == Enum.UserInputState.End
-                    lp.Character.Runscript.run:FireServer(false)
-                end
-                
-                if key.KeyCode == Enum.KeyCode.DPadUp then
-                    equipweapon()
-                end
-                
-                if key.KeyCode == Enum.KeyCode.DPadDown then
-                    equipweapon("Fire bomb")
-                end
-                
-                if key.KeyCode == Enum.KeyCode.DPadRight then
-                    equipweapon("Grenade")
-                end
-                
-                if key.KeyCode == Enum.KeyCode.DPadLeft then
-                    equipweapon("C4")
-                end    
-                
-                if key.KeyCode == Enum.KeyCode.ButtonY then
-                    local A_1 = 29
-                    local Event = game:GetService("ReplicatedStorage").Item
-                    Event:FireServer(A_1)
-                end
-                
-                if key.KeyCode == Enum.KeyCode.ButtonB then
-                    local A_1 = game:GetService("Workspace").PlayersCharacters.ErasedGuestUser
-                    local Event = game:GetService("ReplicatedStorage").kicc
-                    Event:FireServer(A_1)
-                end
-            end)
-
+		local function weaponcheck(part)
+			if part and part ~= nil and part ~= "" then
+				local name = part.Name
+				if name ~= "Snow ball" and name ~= "Explosive present" and name ~= "Grenade" and name ~= "C4" and name ~= "Fire bomb" and name ~= "Bear trap" and name ~= "Firework" and name ~= "Festive Cannon" and name ~= "Trumpet" and name ~= "Health potion" then
+					return true
+				end
+			end
+		end
+	
+		local function equipweapon(tool)
+			if not tool then
+				local player = game.Players.LocalPlayer
+				for i,v in pairs(player.Character:GetChildren()) do
+					if v:IsA("Tool") and not weaponcheck(v) then
+						v.Parent = player.Backpack
+					end
+				end
+				for i,v in pairs(player.Backpack:GetChildren()) do
+					if weaponcheck(v) and v:IsA("Tool") then
+						v.Parent = player.Character
+						break
+					end
+				end
+			else
+				local tool = lp.Backpack:FindFirstChild(tool)
+				if tool then
+					for i,v in pairs(lp.Character:GetChildren()) do
+						if v:IsA("Tool") then
+							v.Parent = lp.Backpack
+						end
+					end
+					wait()
+					tool.Parent = lp.Character
+				end
+			end
+		end
+	
+		local function parry()
+			equipweapon()
+			game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool").ability:FireServer()
+		end
+	
+		local function roll()
+			local hrp = lp.Character:WaitForChild("HumanoidRootPart")
+			local humanoid = lp.Character:WaitForChild("Humanoid")
+			local pos = hrp.Position
+			local velocity = hrp.Velocity
+			local direction = humanoid.MoveDirection
+			local A_1 = direction
+			local A_2 = pos
+			local A_3 = velocity
+			local Event = game:GetService("ReplicatedStorage").dash
+			if direction ~= Vector3.new(0,0,0) then
+				Event:FireServer(A_1, A_2, A_3)
+			end
+		end
+	
+		game:GetService("UserInputService").InputBegan:Connect(function(key)
+			if key.KeyCode == Enum.KeyCode.ButtonX then
+				roll()
+			end
+	
+			if key.KeyCode == Enum.KeyCode.ButtonL2 then
+				parry()
+			end
+	
+			if key.KeyCode == Enum.KeyCode.ButtonL3 then
+				lp.Character.Runscript.run:FireServer(true)
+				repeat wait() until key.UserInputState == Enum.UserInputState.End
+				lp.Character.Runscript.run:FireServer(false)
+			end
+	
+			if key.KeyCode == Enum.KeyCode.DPadUp then
+				equipweapon()
+			end
+	
+			if key.KeyCode == Enum.KeyCode.DPadDown then
+				equipweapon("Fire bomb")
+			end
+	
+			if key.KeyCode == Enum.KeyCode.DPadRight then
+				equipweapon("Grenade")
+			end
+	
+			if key.KeyCode == Enum.KeyCode.DPadLeft then
+				equipweapon("C4")
+			end    
+	
+			if key.KeyCode == Enum.KeyCode.ButtonY then
+				local A_1 = 29
+				local Event = game:GetService("ReplicatedStorage").Item
+				Event:FireServer(A_1)
+			end
+	
+			if key.KeyCode == Enum.KeyCode.ButtonB then
+				local A_1 = game:GetService("Workspace").PlayersCharacters.ErasedGuestUser
+				local Event = game:GetService("ReplicatedStorage").kicc
+				Event:FireServer(A_1)
+			end
+		end)
+	
 	end)
 	
---371112664------------------------------Faction Defence----------------------------------------------
-    
-    createframe("Faction Defence")
-    
-    local factionpressednoob = false
-    local factionfarm = createbutton("Faction Defence", "Auto farm")
-    factionfarm.MouseButton1Click:Connect(function()
-        if factionpressednoob == false then
-            factionpressednoob = true
-            factionfarm.Text = "Used"
-            function givemoney(amount)
-                local A_1 = math.random(1,5)
-                local Event = game:GetService("ReplicatedStorage").PlayerMoneyUpdate[game.Players.LocalPlayer.Name]
-                Event:FireServer(A_1)
-            end
-            
-            function getitem(item)
-                local A_1 = item
-                local Event = game:GetService("ReplicatedStorage").Events.Purchase
-                Event:InvokeServer(A_1)
-            end
-            game:GetService("CoreGui").PurchasePromptApp.PurchasePromptUI.Visible = false
-            
-            _G.FDT = not _G.FDT
-            while _G.FDT == true do
-                wait(5)
-                for i,v in pairs(workspace.Camera:GetChildren()) do
-                    if v:IsA("Model") and v:FindFirstChild("Cost") then
-                        spawn(function()
-                            givemoney(tonumber(v.Cost.Value))
-                            getitem(v.Name)
-                        end)
-                    end
-                end
-            end
-        end
-    end)
-    
-    createbutton("Faction Defence", "Give money [amount]", function()
-        local A_1 = gettext()
-        local Event = game:GetService("ReplicatedStorage").PlayerMoneyUpdate[game.Players.LocalPlayer.Name]
-        Event:FireServer(A_1)
-    end)
-    
-    local godmodefaction = createbutton("Faction Defence", "God char [Off]")
-    
-    godmodefaction.MouseButton1Click:Connect(function()
-        _G.GODMANOWU = not _G.GODMANOWU
-        if _G.GODMANOWU == true then
-            godmodefaction.Text = "God char [On]"
-        else
-            godmodefaction.Text = "God char [Off]"
-        end
-        if _G.GODMANOWU == true then
-            game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):Destroy()
-        end
-        local godmanxd = game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
-            local human = char:WaitForChild("Humanoid")
-            local sadlifexd = human.HealthChanged:Connect(function()
-                local A_1 = "Damage"
-                local A_2 = -334543456356456345364345653465534
-                local A_3 = human
-                local Event = game:GetService("ReplicatedStorage").Swords
-                Event:InvokeServer(A_1, A_2, A_3)
-            end)
-            repeat wait() until _G.GODMANOWU == false
-            sadlifexd:Disconnect()
-        end)
-        
-        repeat wait() until _G.GODMANOWU == false
-        godmanxd:Disconnect()
-    end)
-    
-    createbutton("Faction Defence", "More troops", function()
-        local A_1 = "Buy a Soldier - $100"
-        local Event = game:GetService("ReplicatedStorage").Events.Purchase
-        Event:InvokeServer(A_1)
-    end)
-    
-local goddiefaction = createbutton("Faction Defence", "God mode [Off]")
-    goddiefaction.MouseButton1Click:Connect(function()
-        _G.GodingModeFactionDnut = not _G.GodingModeFactionDnut
-        if _G.GodingModeFactionDnut == true then
-            goddiefaction.Text = "God mode [On]"
-        else
-            goddiefaction.Text = "God mode [Off]"
-        end
-        
-        function checkai(v)
-            if v:IsA("Humanoid") and not v:IsDescendantOf(game.Players.LocalPlayer.Character) and v.Parent:FindFirstChild("crater") then
-               if tostring(v.Parent.crater.Value):match(game.Players.LocalPlayer.Name) or tostring(v.Parent.crater.Value):match("HamburberHelper") then
-                   v.HealthChanged:Connect(function()
-                        spawn(function()
-                            pcall(function()
-                                local A_1 = "Damage"
-                                local A_2 = -334543456356456345364345653465534
-                                local A_3 = v
-                                local Event = game:GetService("ReplicatedStorage").Swords
-                                Event:InvokeServer(A_1, A_2, A_3)
-                            end)
-                        end)
-                   end)
-                spawn(function()
-                    pcall(function()
-                        local A_1 = "Damage"
-                        local A_2 = -334543456356456345364345653465534
-                        local A_3 = v
-                        local Event = game:GetService("ReplicatedStorage").Swords
-                        Event:InvokeServer(A_1, A_2, A_3)
-                    end)
-                end)
-                end
-            elseif v:IsA("Humanoid") and v:IsDescendantOf(game.Players.LocalPlayer.Character) then
-                local donutitoeat = v.HealthChanged:Connect(function()
-                    spawn(function()
-                        pcall(function()
-                            local A_1 = "Damage"
-                            local A_2 = -33456345364345653465534
-                            local A_3 = v
-                            local Event = game:GetService("ReplicatedStorage").Swords
-                            Event:InvokeServer(A_1, A_2, A_3)
-                        end)
-                    end)
-                end)
-                spawn(function()
-                    repeat wait() until _G.GodingModeFactionDnut == false
-                    donutitoeat:Disconnect()
-                end)
-                spawn(function()
-                    pcall(function()
-                        local A_1 = "Damage"
-                        local A_2 = -334543456356364345653465534
-                        local A_3 = v
-                        local Event = game:GetService("ReplicatedStorage").Swords
-                        Event:InvokeServer(A_1, A_2, A_3)
-                    end)
-                end)
-            elseif v:IsA("Humanoid") and game.Players:FindFirstChild"HamburberHelper" and v:IsDescendantOf(game.Players:FindFirstChild"HamburberHelper".Character) then
-                local pooeinoob = v.HealthChanged:Connect(function()
-                    spawn(function()
-                        pcall(function()
-                            local A_1 = "Damage"
-                            local A_2 = -33456345364345653465534
-                            local A_3 = v
-                            local Event = game:GetService("ReplicatedStorage").Swords
-                            Event:InvokeServer(A_1, A_2, A_3)
-                        end)
-                    end)
-                end)
-                
-                spawn(function()
-                    repeat wait() until _G.GodingModeFactionDnut == false
-                    pooeinoob:Disconnect()
-                end)
-                
-                spawn(function()
-                    pcall(function()
-                        local A_1 = "Damage"
-                        local A_2 = -334543456356364345653465534
-                        local A_3 = v
-                        local Event = game:GetService("ReplicatedStorage").Swords
-                        Event:InvokeServer(A_1, A_2, A_3)
-                    end)
-                end)
-            end
-        end
-        
-        
-        for i,v in pairs(workspace:GetDescendants()) do
-            if _G.GodingModeFactionDnut == true then
-                checkai(v)
-            end
-        end
-        local workihard = workspace.DescendantAdded:Connect(function(thing)
-            if _G.GodingModeFactionDnut == true then
-            wait(1)
-            checkai(thing)
-            end
-        end)
-        repeat wait() until _G.GodingModeFactionDnut == false
-        workihard:Disconnect()
-    end)
-    
-createbutton("Faction Defence", "Kill all", function()
-    function damage(v)
-        spawn(function()
-        local A_1 = "Damage"
-        local A_2 = math.huge
-        local A_3 = v
-        local Event = game:GetService("ReplicatedStorage").Swords
-        Event:InvokeServer(A_1, A_2, A_3)
-	Event:InvokeServer("Tag", 0, A_3)
-        end)
-    end
-    
-    for i,v in pairs(workspace:GetDescendants()) do
-        if v:IsA("Humanoid") then
-            damage(v)
-        end
-    end
-end)
--------------------------------------------Soup Simulator-------------------------
-    createframe("Soup Simulator")
-    
-    local soupfarmlol = createbutton("Soup Simulator", "Auto farm [Off]")
-    local soupfarmingxd = false
-    soupfarmlol.MouseButton1Click:Connect(function()
-        soupfarmingxd = not soupfarmingxd
-        if soupfarmingxd == true then
-            soupfarmlol.Text = "Auto farm [On]"
-        else
-            soupfarmlol.Text = "Auto farm [Off]"
-        end
-        
-        while wait() and soupfarmingxd == true do
-            local Event = game:GetService("ReplicatedStorage").Remotes.Lift
-            Event:FireServer()
-        end
-    end)
-    
- ------------------------End--------------------------------------------
- 
+	--371112664------------------------------Faction Defence----------------------------------------------
+	
+	createframe("Faction Defence")
+	
+	local factionpressednoob = false
+	local factionfarm = createbutton("Faction Defence", "Auto farm")
+	factionfarm.MouseButton1Click:Connect(function()
+		if factionpressednoob == false then
+			factionpressednoob = true
+			factionfarm.Text = "Used"
+			function givemoney(amount)
+				local A_1 = math.random(1,5)
+				local Event = game:GetService("ReplicatedStorage").PlayerMoneyUpdate[game.Players.LocalPlayer.Name]
+				Event:FireServer(A_1)
+			end
+	
+			function getitem(item)
+				local A_1 = item
+				local Event = game:GetService("ReplicatedStorage").Events.Purchase
+				Event:InvokeServer(A_1)
+			end
+			game:GetService("CoreGui").PurchasePromptApp.PurchasePromptUI.Visible = false
+	
+			_G.FDT = not _G.FDT
+			while _G.FDT == true do
+				wait(5)
+				for i,v in pairs(workspace.Camera:GetChildren()) do
+					if v:IsA("Model") and v:FindFirstChild("Cost") then
+						spawn(function()
+							givemoney(tonumber(v.Cost.Value))
+							getitem(v.Name)
+						end)
+					end
+				end
+			end
+		end
+	end)
+	
+	createbutton("Faction Defence", "Give money [amount]", function()
+		local A_1 = gettext()
+		local Event = game:GetService("ReplicatedStorage").PlayerMoneyUpdate[game.Players.LocalPlayer.Name]
+		Event:FireServer(A_1)
+	end)
+	
+	local godmodefaction = createbutton("Faction Defence", "God char [Off]")
+	
+	godmodefaction.MouseButton1Click:Connect(function()
+		_G.GODMANOWU = not _G.GODMANOWU
+		if _G.GODMANOWU == true then
+			godmodefaction.Text = "God char [On]"
+		else
+			godmodefaction.Text = "God char [Off]"
+		end
+		if _G.GODMANOWU == true then
+			game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):Destroy()
+		end
+		local godmanxd = game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
+			local human = char:WaitForChild("Humanoid")
+			local sadlifexd = human.HealthChanged:Connect(function()
+				local A_1 = "Damage"
+				local A_2 = -334543456356456345364345653465534
+				local A_3 = human
+				local Event = game:GetService("ReplicatedStorage").Swords
+				Event:InvokeServer(A_1, A_2, A_3)
+			end)
+			repeat wait() until _G.GODMANOWU == false
+			sadlifexd:Disconnect()
+		end)
+	
+		repeat wait() until _G.GODMANOWU == false
+		godmanxd:Disconnect()
+	end)
+	
+	createbutton("Faction Defence", "More troops", function()
+		local A_1 = "Buy a Soldier - $100"
+		local Event = game:GetService("ReplicatedStorage").Events.Purchase
+		Event:InvokeServer(A_1)
+	end)
+	
+	local goddiefaction = createbutton("Faction Defence", "God mode [Off]")
+	goddiefaction.MouseButton1Click:Connect(function()
+		_G.GodingModeFactionDnut = not _G.GodingModeFactionDnut
+		if _G.GodingModeFactionDnut == true then
+			goddiefaction.Text = "God mode [On]"
+		else
+			goddiefaction.Text = "God mode [Off]"
+		end
+	
+		function checkai(v)
+			if v:IsA("Humanoid") and not v:IsDescendantOf(game.Players.LocalPlayer.Character) and v.Parent:FindFirstChild("crater") then
+				if tostring(v.Parent.crater.Value):match(game.Players.LocalPlayer.Name) or tostring(v.Parent.crater.Value):match("HamburberHelper") then
+					v.HealthChanged:Connect(function()
+						spawn(function()
+							pcall(function()
+								local A_1 = "Damage"
+								local A_2 = -334543456356456345364345653465534
+								local A_3 = v
+								local Event = game:GetService("ReplicatedStorage").Swords
+								Event:InvokeServer(A_1, A_2, A_3)
+							end)
+						end)
+					end)
+					spawn(function()
+						pcall(function()
+							local A_1 = "Damage"
+							local A_2 = -334543456356456345364345653465534
+							local A_3 = v
+							local Event = game:GetService("ReplicatedStorage").Swords
+							Event:InvokeServer(A_1, A_2, A_3)
+						end)
+					end)
+				end
+			elseif v:IsA("Humanoid") and v:IsDescendantOf(game.Players.LocalPlayer.Character) then
+				local donutitoeat = v.HealthChanged:Connect(function()
+					spawn(function()
+						pcall(function()
+							local A_1 = "Damage"
+							local A_2 = -33456345364345653465534
+							local A_3 = v
+							local Event = game:GetService("ReplicatedStorage").Swords
+							Event:InvokeServer(A_1, A_2, A_3)
+						end)
+					end)
+				end)
+				spawn(function()
+					repeat wait() until _G.GodingModeFactionDnut == false
+					donutitoeat:Disconnect()
+				end)
+				spawn(function()
+					pcall(function()
+						local A_1 = "Damage"
+						local A_2 = -334543456356364345653465534
+						local A_3 = v
+						local Event = game:GetService("ReplicatedStorage").Swords
+						Event:InvokeServer(A_1, A_2, A_3)
+					end)
+				end)
+			elseif v:IsA("Humanoid") and game.Players:FindFirstChild"HamburberHelper" and v:IsDescendantOf(game.Players:FindFirstChild"HamburberHelper".Character) then
+				local pooeinoob = v.HealthChanged:Connect(function()
+					spawn(function()
+						pcall(function()
+							local A_1 = "Damage"
+							local A_2 = -33456345364345653465534
+							local A_3 = v
+							local Event = game:GetService("ReplicatedStorage").Swords
+							Event:InvokeServer(A_1, A_2, A_3)
+						end)
+					end)
+				end)
+	
+				spawn(function()
+					repeat wait() until _G.GodingModeFactionDnut == false
+					pooeinoob:Disconnect()
+				end)
+	
+				spawn(function()
+					pcall(function()
+						local A_1 = "Damage"
+						local A_2 = -334543456356364345653465534
+						local A_3 = v
+						local Event = game:GetService("ReplicatedStorage").Swords
+						Event:InvokeServer(A_1, A_2, A_3)
+					end)
+				end)
+			end
+		end
+	
+	
+		for i,v in pairs(workspace:GetDescendants()) do
+			if _G.GodingModeFactionDnut == true then
+				checkai(v)
+			end
+		end
+		local workihard = workspace.DescendantAdded:Connect(function(thing)
+			if _G.GodingModeFactionDnut == true then
+				wait(1)
+				checkai(thing)
+			end
+		end)
+		repeat wait() until _G.GodingModeFactionDnut == false
+		workihard:Disconnect()
+	end)
+	
+	createbutton("Faction Defence", "Kill all", function()
+		function damage(v)
+			spawn(function()
+				local A_1 = "Damage"
+				local A_2 = math.huge
+				local A_3 = v
+				local Event = game:GetService("ReplicatedStorage").Swords
+				Event:InvokeServer(A_1, A_2, A_3)
+				Event:InvokeServer("Tag", 0, A_3)
+			end)
+		end
+	
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v:IsA("Humanoid") then
+				damage(v)
+			end
+		end
+	end)
+	
+	createframe("Ragdoll Engine")
+	
+	local push = createbutton("Ragdoll Engine", "Push [Off]")
+	local pushing = false
+	push.MouseButton1Click:Connect(function()
+		pushing = not pushing
+		if pushing == true then
+			push.Text = "Super Push [On]"
+		else
+			push.Text = "Super Push [Off]"
+		end
+		if pushing == true then
+			while pushing == true and game:GetService("RunService").Stepped:Wait() do
+				local Event = game.Players.LocalPlayer.Character:FindFirstChild("Push") or game.Players.LocalPlayer.Backpack:FindFirstChild("Push")
+				if Event then
+					Event = Event.PushEvent
+					Event:FireServer()
+				end
+			end
+		end
+	end)
+	
+	antirag = createbutton("Ragdoll Engine", "Anti ragdoll [Off]")
+	local norag = false
+	antirag.MouseButton1Click:Connect(function()
+		norag = not norag
+		if norag == true then
+			antirag.Text = "Anti ragdoll [On]"
+		else
+			antirag.Text = "Anti ragdoll [Off]"
+		end
+		if norag == true then
+			local harderpushman = game.Players.LocalPlayer.Character.HumanoidRootPart.ChildAdded:Connect(function(v)
+				if v:IsA("BodyForce") then
+					game:GetService("RunService").Stepped:Wait()
+					v:Destroy()
+				end
+			end)
+			while game:GetService"RunService".Stepped:Wait() and norag == true do
+				local bool_1 = false;
+				local Target = game:GetService("ReplicatedStorage").LocalRagdollEvent;
+				Target:Fire(bool_1);
+			end
+			harderpushman:Disconnect()
+		end
+	end)
+	
+	------------------------End--------------------------------------------
+	
 	local loaded = Instance.new("BoolValue", mainframe.Parent)
 	loaded.Name = "Loaded"
 	loaded.Value = true
 	mainframe.Parent.Text = name
 	
-    charadded(function()
+	charadded(function()
 		spinbutton.Text = "Spin [Number], [Off]"
 		flybutton.Text = "Fly [Off]"
 		unfly()
 		unswim()
 		sitbutton.Text = "Sit [Off]"
+		platformedgy.Text = "Platform stand [Off]"
 		gethumanoid().Changed:Connect(function()
 			sitting = gethumanoid().Sit
 			if sitting == true then
@@ -1934,8 +2069,8 @@ end)
 		end)
 	end)
 end
-coroutine.wrap(BNWJ_fake_script)()
-local function TUYAX_fake_script() -- Minimize.LocalScript 
+coroutine.wrap(EKLPFOS_fake_script)()
+local function FKTVMTF_fake_script() -- Minimize.LocalScript 
 	local script = Instance.new('LocalScript', Minimize)
 
 	local timeer = 0.5
@@ -1946,7 +2081,7 @@ local function TUYAX_fake_script() -- Minimize.LocalScript
 		title.Values.Visible = false
 		mainframe.Visible = false
 		title.BackgroundTransparency = 0.7
-		title:TweenSize(UDim2.fromScale(0.235/2,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,0,false,function()
+		title:TweenSize(UDim2.fromScale(0.255/2,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,0,false,function()
 			pressed = true
 		end)
 	end)
@@ -1955,7 +2090,7 @@ local function TUYAX_fake_script() -- Minimize.LocalScript
 			mainframe:TweenSize(UDim2.fromScale(mainframe.Size.X.Scale,0), Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
 				title.Values.Visible = false
 				mainframe.Visible = false
-				title:TweenSize(UDim2.fromScale(0.235/2,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
+				title:TweenSize(UDim2.fromScale(0.255/2,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
 					title.BackgroundTransparency = 0.7
 					pressed = true
 				end)
@@ -1965,7 +2100,7 @@ local function TUYAX_fake_script() -- Minimize.LocalScript
 			title.BackgroundTransparency = 0
 			mainframe:TweenSize(UDim2.fromScale(mainframe.Size.X.Scale,10), Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
 				title.Values.Visible = true
-				title:TweenSize(UDim2.fromScale(0.235,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
+				title:TweenSize(UDim2.fromScale(0.255,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
 					pressed = false
 				end)
 			end)
@@ -1977,9 +2112,9 @@ local function TUYAX_fake_script() -- Minimize.LocalScript
 	title.BackgroundTransparency = 0
 	mainframe:TweenSize(UDim2.fromScale(mainframe.Size.X.Scale,10), Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
 		title.Values.Visible = true
-		title:TweenSize(UDim2.fromScale(0.235,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
+		title:TweenSize(UDim2.fromScale(0.255,title.Size.Y.Scale),Enum.EasingDirection.In,Enum.EasingStyle.Linear,timeer,false,function()
 			pressed = false
 		end)
 	end)
 end
-coroutine.wrap(TUYAX_fake_script)()
+coroutine.wrap(FKTVMTF_fake_script)()
