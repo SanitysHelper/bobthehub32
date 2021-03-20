@@ -859,7 +859,7 @@ local function EKLPFOS_fake_script() -- MainFrame.LocalScript
 	end) --10
 	
 	createbutton("Misc", "Respawn", function()
-		lp.Character = nil
+		lp:ClearAllChildren()
 	end) --11
 	
 	
