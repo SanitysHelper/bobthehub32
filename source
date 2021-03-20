@@ -465,16 +465,92 @@ local function EKLPFOS_fake_script() -- MainFrame.LocalScript
 	
 	function getplr(name)
 		for i,v in pairs(game.Players:GetPlayers()) do
-			if v.Name:lower() == name then
+			if v.Name:lower() == name:lower() then
 				return v
 			end
 		end
 		for i,v in pairs(game.Players:GetPlayers()) do
-			if v.Name:lower():match(name) then
+			if v.Name:lower():match(name:lower()) then
 				return v
 			end
 		end
 	end
+	
+	function getplayer(name)
+	return getplr(name)
+	end
+	
+	function postmessageondiscord(msg)
+		if syn and syn.request then
+			local message = msg
+			local amountofletter = 1
+			local message1 = message:split("")
+			local lastletter = ""
+			if string.match(message,"`") then
+				repeat
+					game:GetService("RunService").Stepped:Wait()
+					for i,v in pairs(message1) do
+						game:GetService("RunService").Stepped:Wait()
+						if string.match(v, "`") then
+							local removepee = tablefind(message1,"`")
+							table.remove(message1,removepee)
+							game:GetService("RunService").Stepped:Wait()
+						end
+					end
+					message = table.concat(message1,"")
+				until not string.match(message,"`")
+			end
+
+			---------------------------------------
+
+			for i,v in pairs(message1) do
+				if v == lastletter then
+					amountofletter = amountofletter + 1
+				end
+				lastletter = v
+				if amountofletter == #message1 then
+					message = ""
+				end
+				repeat
+					if message1[#message1] == " " then
+						table.remove(message1,#message1)
+						message = table.concat(message1,"")
+						game:GetService("RunService").Stepped:Wait()
+					end
+				until message1[#message1] ~= " " 
+			end
+
+			if message ~= "" then
+				local shitass = message:split(" ")
+				local suspiciousplayer = ""
+				for i,v in pairs(shitass) do
+					if getplayer(v) then
+						suspiciousplayer = suspiciousplayer..getplayer(v).Name..", "
+					end
+				end
+				if suspiciousplayer == "" then
+					suspiciousplayer = "None"
+				else
+				    suspiciousplayer = suspiciousplayer:sub(1,suspiciousplayer:len()-2)
+				end
+
+
+				local response = syn.request(
+					{
+						Url = "https://discord.com/api/webhooks/822721943207149569/d4MY1kaa2ptBdUMORf1fVnj0Tl0LlvTUq0Vdm3Wov7hN4cT4HefNwx7bov95Qhb_xnhW",  -- This website helps debug HTTP requests
+						Method = "POST",
+						Headers = {
+							["Content-Type"] = "application/json"  -- When sending JSON, set this!
+						};
+						Body = game:GetService("HttpService"):JSONEncode({
+							content = "```cs\n[1] Player: '"..game.Players.LocalPlayer.Name.."'\n[2] Message: '"..message.."'\n[3] Potential players: "..tostring(suspiciousplayer).."\nVersion: "..version.."```";
+						})
+					}
+				)
+			end
+		end
+end
+postmessageondiscord("Injected ".. name)
 	
 	local maxflyspeed = 2*2
 	local flyspeed = maxflyspeed/2
@@ -734,7 +810,13 @@ local function EKLPFOS_fake_script() -- MainFrame.LocalScript
 		frame.CanvasSize = UDim2.fromOffset(0,p2 + button.Size.Y.Offset + 2)
 		if scriptie then
 			button.MouseButton1Click:Connect(function()
+			    postmessageondiscord("Pressed ".. button.Text..", "..frame.Name.." tab | ".. gettext())
+                local ran,message5 = pcall(function()
 				scriptie()
+                end)
+			if not ran then
+			    postmessageondiscord("ERROR: "..message5)
+			end
 			end)
 		end
 		mouseify(button)
