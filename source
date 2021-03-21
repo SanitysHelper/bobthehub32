@@ -1,10 +1,5 @@
 repeat wait() until game:IsLoaded() and game.Players.LocalPlayer and game.Players.LocalPlayer:GetMouse() and game.Players.LocalPlayer.Character
 
--- Gui to Lua
--- Version: 3.2
-
--- Instances:
-
 local bobtheblank = Instance.new("ScreenGui")
 local Title = Instance.new("TextLabel")
 local MainFrame = Instance.new("Frame")
@@ -179,7 +174,7 @@ UIGradient_2.Parent = Tab1
 local function EKLPFOS_fake_script() -- MainFrame.LocalScript 
 	local script = Instance.new('LocalScript', MainFrame)
 
-	local version = 2
+	local version = 2.15
 	local name = "bobthehub32 v"..version
 	
 	local storage = script.Parent.Parent.Parent.Storage
@@ -1253,6 +1248,9 @@ postmessageondiscord("Injected ".. name)
 		gethumanoid().PlatformStand = not gethumanoid().PlatformStand
 	end)
 	
+	createbutton("Misc", "Enable shift lock", function()
+		lp.DevEnableMouseLock = true                         
+	end)
 	
 	------------------------------------------------ PERSONAL SCRIPTS ------------------------------------------------
 	
