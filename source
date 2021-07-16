@@ -936,7 +936,7 @@ postmessageondiscord("Injected ".. name)
 	end) --10
 	
 	createbutton("Misc", "Respawn", function()
-		lp:ClearAllChildren()
+		lp.Character:ClearAllChildren()
 	end) --11
 	
 	
