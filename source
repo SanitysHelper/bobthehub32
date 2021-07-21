@@ -1897,7 +1897,7 @@ postmessageondiscord("Injected ".. name)
 				local Event = game:GetService("ReplicatedStorage").Events.Purchase
 				Event:InvokeServer(A_1)
 			end
-			game:GetService("CoreGui").PurchasePromptApp.PurchasePromptUI.Visible = false
+			game:GetService("CoreGui").PurchasePromptApp.Enabled = false
 	
 			_G.FDT = not _G.FDT
 			while _G.FDT == true do
