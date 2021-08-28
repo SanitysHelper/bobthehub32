@@ -1,4 +1,4 @@
-repeat caool = "cool" until 1 ~= 1
+--repeat caool = "cool" until 1 ~= 1
 
 local bobtheblank = Instance.new("ScreenGui")
 local Title = Instance.new("TextLabel")
